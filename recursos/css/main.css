@@ -1,0 +1,82 @@
+/* 
+    Document   : main
+    Created on : 02-may-2015, 1:23:10
+    Author     : Jorge Rodríguez <jergo23@gmail.com>
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+body{
+    background: url(../imagenes/fondo/BB_fondo.jpg); /*url(../imagenes/fondo/BB_fondo_64586.jpg);*/
+    background-size: 100%;
+    font-size: 16px;
+}
+div{
+    /*border: yellow 1px solid;*/
+}
+.teu{
+	margin: auto;	/* para centrar la página */
+	width: 1050px;	/* para que el ancho sea fijo */
+        /*width: 90% auto;	/* para que el ancho variable */
+	overflow: hidden;
+	margin-top:0px;
+}
+
+#encabezado{
+	background: rgb(155,177,198);
+        margin-bottom: 10px;
+        margin-top: 5px;
+}
+
+#menu_izq{
+    width: 23%;
+    float: left;
+}
+
+#menu_izq li , #menu_izq li a{
+    cursor: pointer;
+    text-decoration: none;
+}
+#menu_izq ul li ul{
+    display: none;
+}
+.menu_adm{
+    border: 1px khaki solid;
+    margin-top: 20px;
+    background: rgba(200,200,15,0.8);
+    width: 150px;
+    list-style: none;
+    text-align: center;
+}
+hr {    /*Anular bootstrap*/
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-top: 1px solid #eee;
+}
+
+#piej{
+    background: rgb(155,177,198);
+    padding: 5px;
+    margin-top: 5px;
+}
+
+#view_content{
+    width: 77%;
+    float: left;
+}
+
+/*Modificaciones de bootstrap*/
+.input-group-addon{
+    width: 100%;
+}
+
+.glyphicon{
+    cursor: pointer;
+}
+
+.btn_derch{
+    margin: 5px;
+}

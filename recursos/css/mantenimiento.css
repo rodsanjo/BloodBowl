@@ -1,0 +1,21 @@
+/* 
+    Document   : mantenimiento.css
+    Created on : 1-may-2015, 18:30:00
+    Author     : Jorge Rodríguez <jergo23@gmail.com>
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+body{
+    background: rgb(155,177,198);
+    background: radial-gradient( circle, rgb(255,255,255) , rgb(155,177,198) 80%);
+    background-image: url(../imagenes/fondo/BB_fondo_64586.jpg);
+}
+.mantenimiento_box{
+    background: rgba(155,177,198,0.8);
+    /*color: green;*/
+}
+.footer{
+    color: black;
+    font-size: 14px;
+}
