@@ -11,11 +11,11 @@
         <label>Escudo:</label>
         <?php
             if ( isset($datos['values']['foto']) ){
-                $check = "<img src='".URL_ROOT."recursos/imagenes/check.jpg' width='40px'/> 
+                $check = "<img src='".URL_HOME_ROOT."recursos/imagenes/check.jpg' width='40px'/> 
                     <span class='alert alert-warning'><b>¡Cuidado!</b> Si selecciona una nueva imagen sustituirá a la anterior</span>
                     ";
             }else{
-                $check = "<img src='".URL_ROOT."recursos/imagenes/no_check.jpg' width='40px'/> 
+                $check = "<img src='".URL_HOME_ROOT."recursos/imagenes/no_check.jpg' width='40px'/> 
                     <div class='alert alert-info alert-dismissable'>
                         <button type='button' class='close' data-dismiss='alert'>&times;</button>
                         <b>¡Atendión!</b> Este equipo aún no tiene escudo
@@ -25,9 +25,9 @@
             echo $check;
         ?>
         
-        <input id='escudo' name='escudo' type='file' size='100'  maxlength='50' value='<?php echo \core\Array_Datos::values('escudo', $datos); ?>'/>
+<!--        <input id='escudo' name='escudo' type='file' size='100'  maxlength='50' value='<?php echo \core\Array_Datos::values('escudo', $datos); ?>'/>
 	<?php echo \core\HTML_Tag::span_error('escudo', $datos); ?>
-	<br />
+	<br />-->
         
         Coste S.O.: <input id='coste_SO' name='coste_SO' type='text' size='6'  maxlength='12' value='<?php echo \core\Array_Datos::values('coste_SO', $datos); ?>'/>
         &nbsp;monedas
@@ -46,7 +46,7 @@
                     $value = "value = '{$conferencia['siglas']}'";
                     $selected = (\core\datos::values('conferencia_siglas', $datos) == $conferencia['siglas']) ? " selected='selected' " : "";
                     //echo "<option $value $selected>{$conferencia['nombre_es']} ({$conferencia['siglas']})</option>\n";
-                    echo "<option $value $selected>{$conferencia['nombre']}</option>\n";
+                    echo "<option $value $selected>{$conferencia['nombre_es']}</option>\n";
                 }
             ?>
         </select>

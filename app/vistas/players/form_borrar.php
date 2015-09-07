@@ -6,26 +6,23 @@
         $(" [type=submit] ").value("Borrar");
         
         var formulario = <?php echo \core\Array_Datos::contenido("form_name", $datos); ?>;
-        window.document.getElementById("tipo").readOnly='readonly';
-        window.document.getElementById("tipo_via_id").readOnly='readonly';
-        window.document.getElementById("nombre_via").readOnly='readonly';
-        window.document.getElementById("num_portal").readOnly='readonly';
-        window.document.getElementById("portal_bloque").readOnly='readonly';
-        window.document.getElementById("anho").readOnly='readonly';
-        window.document.getElementById("planta").readOnly='readonly';
-        window.document.getElementById("puerta").readOnly='readonly';
-        window.document.getElementById("cp").readOnly='readonly';
-        window.document.getElementById("localidad").readOnly='readonly';
-        window.document.getElementById("provincia").readOnly='readonly';
-        window.document.getElementById("pais").readOnly='readonly';
-        window.document.getElementById("superficie").readOnly='readonly';
-        window.document.getElementById("precio_venta").readOnly='readonly';
-        window.document.getElementById("precio_alquiler").readOnly='readonly';
-        window.document.getElementById("coord_utm_x").readOnly='readonly';
-        window.document.getElementById("coord_utm_y").readOnly='readonly';
+        window.document.getElementById("nombre").readOnly='readonly';
+        window.document.getElementById("posicion").readOnly='readonly';
+        window.document.getElementById("raza").readOnly='readonly';
+        window.document.getElementById("mo").readOnly='readonly';
+        window.document.getElementById("fu").readOnly='readonly';
+        window.document.getElementById("ag").readOnly='readonly';
+        window.document.getElementById("ar").readOnly='readonly';
+        window.document.getElementById("hab_norm").readOnly='readonly';
+        window.document.getElementById("hab_dbl").readOnly='readonly';
+        window.document.getElementById("precio").readOnly='readonly';
+        window.document.getElementById("num_min").readOnly='readonly';
+        window.document.getElementById("num_max").readOnly='readonly';
+        window.document.getElementById("jug_estrella").readOnly='readonly';
+        window.document.getElementById("foto").readOnly='readonly';
         
         window.document.getElementById("resenha").readOnly='readonly';
-        document.getElementById("resenha").style.display = "none";
+        document.getElementById("habilidades").style.display = "none";
 
         function modificar_permisos() {
                 $(" [type=checkbox] ").removeAttr("disabled");

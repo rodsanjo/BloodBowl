@@ -5,12 +5,47 @@ class players extends \core\Controlador {
     private static $tabla_e = 'equipos';
     private static $tabla_j = 'jugadores';
     
-    private static $controlador = 'teams';
+    private static $controlador = 'players';
     
     public function index(array $datos = array() ){
-            //header("Location: ".\core\URL::generar("self::$controlador/index"));
-            \core\HTTP_Respuesta::set_header_line("location", \core\URL::generar("inicio/index"));
-            \core\HTTP_Respuesta::enviar();
+        //\core\http_requermiento::request_come_by_post();
+        
+        if( isset($_POST['id']) && is_int($_POST['id']) ){ //viene el id
+            $clausulas['where'] = " id = {$_POST['id']} ";
+        }elseif( isset($_GET['p3']) ){ //no viene el id, han escrito la url a mano
+            $raza = str_replace('-',' ', $_GET['p3'] );
+            $clausulas['where'] = " raza like '%$raza%' ";
+        }else{
+            $clausulas['where'] = "";   //Por si alguien maneja la URL sin introducir referencia, mostrará el primero
+        }
+        
+        if ( ! $filas = \modelos\Datos_SQL::select( $clausulas, self::$tabla_e)) {
+            $datos['mensaje'] = 'El equipo no existe, seleccione uno de los indicados en el menú por favor';
+            \core\Distribuidor::cargar_controlador('mensajes', 'mensaje', $datos);
+            return;
+        }else{
+            //var_dump($filas);
+            foreach ($filas as $key => $equipo) {  //For if it comes with several teams,
+                $datos['equipos'][$key]['equipo'] = $equipo; // $equipo = $filas[$key];        
+                $datos['equipos'][$key]['jugadores'] = \modelos\teams::getPlayers_by_team($equipo);
+            }
+            /*
+            //Usando equipo_id como FK buscamos los detalles de los jugadores
+            $equipo_id = $filas[0]['id'];
+            $clausulas['where'] = " equipo_id = $equipo_id ";
+            $datos['jugadores'] = \modelos\Modelo_SQL::table(self::$tabla_j)->select($clausulas);
+             */
+        }
+        
+        //var_dump($datos);
+        
+        //Mostramos los datos a modificar en formato europeo. Convertimos el formato de MySQL a europeo para su visualización
+        \controladores\players::convertir_formato_mysql_a_ususario($datos['equipos'], false);
+
+        $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
+        $http_body = \core\Vista_Plantilla::generar('DEFAULT', $datos);
+        \core\HTTP_Respuesta::enviar($http_body);
+            
     }   
     
     /**
@@ -62,28 +97,35 @@ class players extends \core\Controlador {
     }
     
     /**
-     * Valida los datos insertados por el usuario. Si estos son correctos mostrará la lista de bienes con 
+     * Valida los datos insertados por el usuario. Si estos son correctos mostrará la lista de elementos con 
      * la nueva inserción, sino mostrará los errores por los que nos se admitió los datos introducidos.
      * @param array $datos
      */
     public function validar_form_insertar(array $datos=array()) {
 
-        $validaciones = \modelos\bienes::$validaciones_insert;
-        
+        $validaciones = \modelos\players::$validaciones_insert;
+$_REQUEST['equipo_id'][0] = 7;
+$_REQUEST['equipo_id'][1] = 17;
+//$_REQUEST['equipo_id'][2] = 'pep';
+//$_REQUEST['equipo_id'][2] = 77;
         if ( ! $validacion = ! \core\Validaciones::errores_validacion_request($validaciones, $datos)){  //validaciones en PHP
             $datos["errores"]["errores_validacion"]="Corrija los errores, por favor.";
-        }else{
-            $validacion = self::comprobar_files($datos);
+        }else{var_dump($datos);
+            //$validacion = self::comprobar_files($datos);
             if ($validacion) {
                 //Convertimos a formato MySQL
                 self::convertir_a_formato_mysql($datos['values']);
                 
-                $datos['values']['referencia'] = self::ponerRef($datos['values']['provincia']);
+                //Start transaction
+                $insert1 = \modelos\players::insertPlayer($datos);
+                $insert2 = \modelos\players::insertPlayerTeams($datos);
+                //End transaction
                 
-                //if ( ! $validacion = \modelos\Modelo_SQL::insert($datos["values"], self::$tabla)) // Devuelve true o false
-                if ( ! $validacion = \modelos\Datos_SQL::table(self::$tabla)->insert($datos["values"])) // Devuelve true o false
+                if ( !$insert1 || !$insert2 ) // Devuelve true o false
+                    //Roll back
                     $datos["errores"]["errores_validacion"]="No se han podido grabar los datos en la bd.";
                 else {
+                    //Consolidar transaccion
                     //Como insertamos un nuevo articulo es necesario extraer el id antes de persistir en la base de datos las ficheros multimedia
                     $sql = 'select(last_insert_id())';
                     $last_insert_id = \core\Modelo_SQL::execute($sql);
@@ -264,6 +306,16 @@ class players extends \core\Controlador {
                 \core\Distribuidor::cargar_controlador(self::$controlador, 'index', $datos);		
             }
         }
+    }
+    
+    /**
+     * Fución que realiza las conversiones de los campos usados en está aplicación al formato utilizado por MySQL.
+     * Convertimos a formato MySQL
+     * @author Jorge Rodriguez Sanz
+     * @param array $param Se corresponderá por regla general con datos['values'] y lo pasamos por referencia, para que modifique el valor
+     */
+    private static function convertir_a_formato_mysql(array &$param) {  //$param = datos['values'] y lo pasamos por referencia, para que modifique el valor        
+        $param['coste'] = \core\Conversiones::decimal_coma_a_punto($param['coste']);
     }
     
     /**

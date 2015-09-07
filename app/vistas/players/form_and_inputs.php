@@ -8,8 +8,8 @@
 	<?php echo \core\HTML_Tag::span_error('nombre', $datos); ?>
 	<br />
         
-        Posición:        
-        <select id='posicion' name="posicion">
+        <b>Posición:</b>
+        <select id='posicion_id' name="posicion_id">
             <?php
             $datos['posiciones'] = \modelos\players::getPosiciones();
             //Por defecto estará seleccionada la vivienda que es el primer elemento de la lista
@@ -26,13 +26,45 @@
         </select>
         <br/>
         
-        Raza:<br/>
+        <b>Raza:</b><br/>
+        <table>
         <?php
         $datos['equipos'] = \modelos\players::getTeams();
+        //$datos['e'] =
         foreach ($datos['equipos'] as $key => $equipo) {
             $value = "value = '{$equipo['id']}'";
             $selected = (\core\datos::values('equipo_id', $datos) == $equipo['id']) ? " selected='selected' " : "";
-            echo "<input id='raza' name='raza' type='checkbox' $value>{$equipo['raza']}\n";
+            $checked = '';
+            if(isset($datos['jugador']['equipos']) && in_array($equipo['id'], $datos['jugador']['equipos']) ){
+                $checked = "checked='checked'";
+            }
+            //columna
+            $col = $key%4;
+            switch ($col){
+                case 0:
+                    $etiquetas_0 = "<tr><td>";
+                    $etiquetas_end = "</td>";
+                    break;
+                case 3:
+                    $etiquetas_0 = "<td>";
+                    $etiquetas_end = "</td><tr>";
+                    break;
+                default:
+                    $etiquetas_0 = "<td style='padding:5px;'>";
+                    $etiquetas_end = "</td>";
+            }
+            echo $etiquetas_0;
+            echo "<input type='checkbox' name='equipo_id[]' $value $checked >   {$equipo['raza']}\n";
+            echo $etiquetas_end;
+        }
+        ?>
+        </table>
+        <?php
+        $input_id = 'equipo_id';
+        if(isset($datos['errores'][$input_id])){
+            foreach ($datos['errores'][$input_id] as $key => $value) { 
+                echo "<span id='error_$input_id' class='input_error'>".(isset($datos['errores'][$input_id][$key]) ? $datos['errores'][$input_id][$key]:'')."</span>";
+            }
         }
         ?>
 
@@ -67,27 +99,30 @@
 	<?php echo \core\HTML_Tag::span_error('ar', $datos); ?>
         </td>
         </tr></table>
+        
+        <b>Habilidades:</b><br/>
+        <textarea id="habilidades" name="habilidades" maxlength='300' cols="120" rows="3"><?php echo \core\Array_Datos::values('habilidades', $datos); ?></textarea>
         <br/>
         
-        Habilidades:<br/>
-        <textarea id="resenha" name="resenha" maxlength='300' cols="120" rows="3"><?php echo \core\Array_Datos::values('resenha', $datos); ?></textarea>
-        <br/>
         
-        Tipo de habilidades normales:<br />
-        <input id='hab_norm' name='hab_norm' type='checkbox' value='G' />Generales
-        <input id='hab_norm' name='hab_norm' type='checkbox' value='F' />Fuerza
-        <input id='hab_norm' name='hab_norm' type='checkbox' value='A' />Agilidad
-        <input id='hab_norm' name='hab_norm' type='checkbox' value='G' />Pase
-        <br />
+        <div>
+            <div class="f50izq">
+                <b>Tipo de habilidades normales:</b><br />
+                <input id='hab_norm' name='hab_norm' type='checkbox' value='G' /> Generales
+                <input id='hab_norm' name='hab_norm' type='checkbox' value='F' /> Fuerza
+                <input id='hab_norm' name='hab_norm' type='checkbox' value='A' /> Agilidad
+                <input id='hab_norm' name='hab_norm' type='checkbox' value='G' /> Pase
+            </div>
+            <div class="f50der">
+                <b>Tipo de habilidades con resultado doble:</b><br />
+                <input id='hab_dbl' name='hab_dbl' type='checkbox' value='G' /> Generales
+                <input id='hab_dbl' name='hab_dbl' type='checkbox' value='F' /> Fuerza
+                <input id='hab_dbl' name='hab_dbl' type='checkbox' value='A' /> Agilidad
+                <input id='hab_dbl' name='hab_dbl' type='checkbox' value='G' /> Pase
+            </div>
+        </div>
         
-        Tipo de habilidades con resultado doble:<br />
-        <input id='hab_dbl' name='hab_dbl' type='checkbox' value='G' />Generales
-        <input id='hab_dbl' name='hab_dbl' type='checkbox' value='F' />Fuerza
-        <input id='hab_dbl' name='hab_dbl' type='checkbox' value='A' />Agilidad
-        <input id='hab_dbl' name='hab_dbl' type='checkbox' value='G' />Pase
-        <br />
-        
-        Precio:<input id='precio' name='precio' type='text' size='8'  maxlength='12' value='<?php echo \core\Array_Datos::values('precio', $datos); ?>'/>
+        <b>Coste:</b><input id='coste' name='coste' type='text' size='8'  maxlength='12' value='<?php echo \core\Array_Datos::values('precio', $datos); ?>'/>
         monedas
         <?php echo \core\HTML_Tag::span_error('precio', $datos); ?>
         <br />
@@ -105,11 +140,11 @@
         <label>Foto:</label>
         <?php
             if ( isset($datos['values']['foto']) ){
-                $check = "<img src='".URL_ROOT."recursos/imagenes/check.jpg' width='40px'/> 
+                $check = "<img src='".URL_HOME_ROOT."recursos/imagenes/check.jpg' width='40px'/> 
                     <span class='alert alert-warning'><b>¡Cuidado!</b> Si selecciona una nueva imagen sustituirá a la anterior</span>
                     ";
             }else{
-                $check = "<img src='".URL_ROOT."recursos/imagenes/no_check.jpg' width='40px'/> 
+                $check = "<img src='".URL_HOME_ROOT."recursos/imagenes/no_check.jpg' width='40px'/> 
                     <div class='alert alert-info alert-dismissable'>
                         <button type='button' class='close' data-dismiss='alert'>&times;</button>
                         <b>¡Atendión!</b> Este jugador aún no tiene ninguna imagen
@@ -119,9 +154,9 @@
             echo $check;
         ?>
         
-        <input id='foto' name='foto' type='file' size='100'  maxlength='50' value='<?php echo \core\Array_Datos::values('foto', $datos); ?>'/>
+<!--        <input id='foto' name='foto' type='file' size='100'  maxlength='50' value='<?php echo \core\Array_Datos::values('foto', $datos); ?>'/>
 	<?php echo \core\HTML_Tag::span_error('foto', $datos); ?>
-	<br />
+	<br />-->
         
 	<?php echo \core\HTML_Tag::span_error('errores_validacion', $datos); ?>
 	
@@ -157,13 +192,33 @@
 	}else{
             document.getElementById("error_nombre_via").innerHTML="";
 	}                      
-}
+    }
+    
+    function Valida (){
+        if (IsChk('equipo_id')){
+            //ok, hay al menos 1 elemento chequeado envía el form!
+            return true;
+        } else {
+            //ni siquiera uno chequeado no envía el form
+            alert ('Chequeame un elemento!');
+            return false;
+        }
+    }
+    
+    function IsChk(chkName){
+        var found = false;
+        var chk = document.getElementsByName(chkName+'[]');
+        for (var i=0 ; i < chk.length ; i++){
+            found = chk[i].checked ? true : found;
+        }
+        return found;
+    }
     
     function validarForm(){
 	ok=true;
 	
-        validarNombre_via();
-	validarNum_portal();
+        //validarNombre_via();
+	//validarNum_portal();
 	
 	//ok=false;	//Si devolvemos false, no se envia el formulario
 	return ok;

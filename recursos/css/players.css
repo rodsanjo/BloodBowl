@@ -1,0 +1,25 @@
+/* 
+    Document   : players
+    Created on : 01-sep-2015, 20:22:42
+    Author     : Jorge Rodríguez <jergo23@gmail.com>
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+.f25dizquierda1 {float: left; width: 25%;}
+.fdizquierda2 {float: left; width: 25%;}
+.fdderecha1 {float:right; width: 25%;}
+.fdderecha2 {float: left; width: 25%;}
+
+.f50izq{
+    float: left;
+    width: 50%;
+}
+.f50der{
+    float: right;
+    width: 50%;
+}

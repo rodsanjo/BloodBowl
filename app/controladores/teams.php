@@ -8,9 +8,43 @@ class teams extends \core\Controlador {
     private static $controlador = 'teams';
     
     public function index(array $datos = array() ){
-            //header("Location: ".\core\URL::generar("self::$controlador/index"));
-            \core\HTTP_Respuesta::set_header_line("location", \core\URL::generar("inicio/index"));
-            \core\HTTP_Respuesta::enviar();
+            //\core\http_requermiento::request_come_by_post();
+        
+        if( isset($_POST['id']) && is_int($_POST['id']) ){ //viene el id
+            $clausulas['where'] = " id = {$_POST['id']} ";
+        }elseif( isset($_GET['p3']) ){ //no viene el id, han escrito la url a mano
+            $raza = str_replace('-',' ', $_GET['p3'] );
+            $clausulas['where'] = " raza like '%$raza%' ";
+        }else{
+            $clausulas['where'] = "";   //Por si alguien maneja la URL sin introducir referencia, mostrará el primero
+        }
+        
+        if ( ! $filas = \modelos\Datos_SQL::select( $clausulas, self::$tabla_e)) {
+            $datos['mensaje'] = 'El equipo no existe, seleccione uno de los indicados en el menú por favor';
+            \core\Distribuidor::cargar_controlador('mensajes', 'mensaje', $datos);
+            return;
+        }else{
+            //var_dump($filas);
+            foreach ($filas as $key => $equipo) {  //For if it comes with several teams,
+                $datos['equipos'][$key]['equipo'] = $equipo; // $equipo = $filas[$key];        
+                $datos['equipos'][$key]['jugadores'] = \modelos\teams::getPlayers_by_team($equipo);
+            }
+            /*
+            //Usando equipo_id como FK buscamos los detalles de los jugadores
+            $equipo_id = $filas[0]['id'];
+            $clausulas['where'] = " equipo_id = $equipo_id ";
+            $datos['jugadores'] = \modelos\Modelo_SQL::table(self::$tabla_j)->select($clausulas);
+             */
+        }
+        
+        //var_dump($datos);
+        
+        //Mostramos los datos a modificar en formato europeo. Convertimos el formato de MySQL a europeo para su visualización
+        \controladores\players::convertir_formato_mysql_a_ususario($datos['equipos'], false);
+        
+        $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
+        $http_body = \core\Vista_Plantilla::generar('DEFAULT', $datos);
+        \core\HTTP_Respuesta::enviar($http_body);
     }    
     
     /**
@@ -299,7 +333,7 @@ class teams extends \core\Controlador {
      */
     private static function convertir_a_formato_mysql(array &$param) {  //$param = datos['values'] y lo pasamos por referencia, para que modifique el valor        
         $param['coste_SO'] = \core\Conversiones::decimal_coma_a_punto($param['coste_SO']);
-    }    
+    }
     
      /**
      * Fución que realiza las conversiones de los campos que muestran las tablas del formato utilizado por MySQL al formato europeo.
