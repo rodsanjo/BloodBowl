@@ -39,15 +39,15 @@ foreach ($datos['equipos'] as $equipo) {
             foreach ($equipo['jugadores'] as $key => $jugador) {
                 echo '<tr>';
                     echo "<td>{$jugador['num_min']} - {$jugador['num_max']}</td>";
-                    echo "<td class='edicion' data-id='{$jugador['id']}'>{$jugador['nombre']} &nbsp;&nbsp;<span class='glyphicon glyphicon-pencil' aria-hidden='true' style='color:#428bca;'></span></td>";
+                    echo "<td>{$jugador['nombre']} &nbsp;&nbsp;".\core\HTML_Tag::a_boton_onclick("", array("players", "form_modificar", $jugador['id']), "<span class='glyphicon glyphicon-pencil' aria-hidden='true' style='color:#428bca;'></span>")."</td>";
                     echo "<td>{$jugador['coste']}</td>";
-                    echo "<td>{$jugador['MO']}</td>";
-                    echo "<td>{$jugador['FU']}</td>";
-                    echo "<td>{$jugador['AG']}</td>";
-                    echo "<td>{$jugador['AR']}</td>";
+                    echo "<td>{$jugador['mo']}</td>";
+                    echo "<td>{$jugador['fu']}</td>";
+                    echo "<td>{$jugador['ag']}</td>";
+                    echo "<td>{$jugador['ar']}</td>";
                     echo "<td>{$jugador['habilidades']}</td>";
-                    echo "<td>{$jugador['tipo_habilidades_normal']}</td>";
-                    echo "<td>{$jugador['tipo_habilidades_doble']}</td>";
+                    echo "<td>{$jugador['tipo_hab_normal']}</td>";
+                    echo "<td>{$jugador['tipo_hab_doble']}</td>";
                     if ( \core\Usuario::tiene_permiso('raza', 'form_borrar')) {
 //                        echo "<td>
 //                            ".\core\HTML_Tag::a_boton_onclick("boton", array("raza", "form_modificar", $jugador['id']), "modificar")

@@ -8,7 +8,7 @@ class teams extends \core\Controlador {
     private static $controlador = 'teams';
     
     public function index(array $datos = array() ){
-            //\core\http_requermiento::request_come_by_post();
+        //\core\http_requermiento::request_come_by_post();
         
         if( isset($_POST['id']) && is_int($_POST['id']) ){ //viene el id
             $clausulas['where'] = " id = {$_POST['id']} ";
@@ -40,7 +40,7 @@ class teams extends \core\Controlador {
         //var_dump($datos);
         
         //Mostramos los datos a modificar en formato europeo. Convertimos el formato de MySQL a europeo para su visualización
-        \controladores\players::convertir_formato_mysql_a_ususario($datos['equipos'], false);
+        \modelos\players::convertir_formato_mysql_a_ususario_pt($datos['equipos'], false);
         
         $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
         $http_body = \core\Vista_Plantilla::generar('DEFAULT', $datos);
@@ -86,7 +86,7 @@ class teams extends \core\Controlador {
         //var_dump($datos);
         
         //Mostramos los datos a modificar en formato europeo. Convertimos el formato de MySQL a europeo para su visualización
-        \controladores\players::convertir_formato_mysql_a_ususario($datos['equipos'], false);
+        \modelos\players::convertir_formato_mysql_a_ususario_pt($datos['equipos'], false);
         
         $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
         $http_body = \core\Vista_Plantilla::generar('DEFAULT', $datos);
@@ -208,12 +208,10 @@ class teams extends \core\Controlador {
         if ($_FILES["escudo"]["size"]) {
                 if ($_FILES["escudo"]["error"] > 0 ) {
                     $datos["errores"]["escudo"] = $_FILES["escudo"]["error"];
-                }
-                elseif ( ! preg_match("/image/", $_FILES["escudo"]["type"])) {
+                }elseif ( ! preg_match("/image/", $_FILES["escudo"]["type"])) {
                     $datos["errores"]["escudo"] = "El fichero no es una imagen.";
-                }
-                elseif ($_FILES["escudo"]["size"] > 1024*1024*1) {
-                    $datos["errores"]["escudo"] = "El tamaño de la imagen debe ser menor que 1MB.";
+                }elseif ($_FILES["escudo"]["size"] > 512*512*1) {
+                    $datos["errores"]["escudo"] = "El tamaño de la imagen debe ser menor que 0,5MB.";
                 }
                 if (isset($datos["errores"]["escudo"])) {
                     $validacion = false;
@@ -256,7 +254,7 @@ class teams extends \core\Controlador {
         if (is_file($foto_path)) {
             unlink($foto_path);
         }
-                    
+         
         $validacion = move_uploaded_file($_FILES["foto"]["tmp_name"], $foto_path);
         return ($validacion ? $nombre.".".$extension : false);
     }

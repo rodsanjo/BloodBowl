@@ -53,7 +53,7 @@ $(document).ready(function(){
  * Función para desplegar las acciones de edición disponibles sobre un jugador o equipo
  */
 $(document).ready(function() {
-    $("td.edicion").dblclick (function (event) {
+    $("td.edicion_player").dblclick (function (event) {
         var x = $(event.target);
         jugador_id = x.data('id');
         ventanaEdicionJugador(jugador_id);

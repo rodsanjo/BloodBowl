@@ -170,7 +170,7 @@ class Validaciones  {
                                             }
                                         }
                                 }
-echo 'Linea: '.__LINE__.'$valores => ';  var_dump($valores);
+
                                 if (preg_match("/_modificar/i", $validador))
                                 {
                                         if ($request_indices[0] != 'id')
@@ -219,7 +219,7 @@ echo 'Linea: '.__LINE__.'$valores => ';  var_dump($valores);
                                     }
                                 }
                         }
-echo 'Linea: '.__LINE__.'$resultado_validador => ';  var_dump($resultado_validador);                        
+
                         if ($resultado_validador) {// La variable $validador contienen el nombre de un método de validación o validador
                             if(!$is_array){    
                                 if (isset($resultados_validacion["errores"][$parametro])){
@@ -238,7 +238,7 @@ echo 'Linea: '.__LINE__.'$resultado_validador => ';  var_dump($resultado_validad
                         }
                 }
         }
-echo 'Array final: '.var_dump($resultados_validacion);
+        //echo 'Array final: '.var_dump($resultados_validacion);
         if (self::$depuracion) {
                 echo "<br />\$resultados_validacion=";
                 print_r($resultados_validacion);
@@ -683,7 +683,7 @@ echo 'Array final: '.var_dump($resultados_validacion);
     public static function errores_referencia(array $valores, $tabla, array $columnas) {
             $mensaje = null;
             $no_null=0;
-            var_dump($valores);
+            //var_dump($valores);
             for ($i=0; $i<count($valores); $i++) {
                 if (strlen($valores[$i])>0)
                     $no_null++;
