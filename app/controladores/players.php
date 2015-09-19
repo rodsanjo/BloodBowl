@@ -4,30 +4,66 @@ class players extends \core\Controlador {
     
     private static $tabla_e = 'equipos';
     private static $tabla_j = 'jugadores';
+    private static $vista = 'v_equipo_jugador';
     
     private static $controlador = 'players';
     
-    public function index(array $datos = array() ){
-        $clausulas['where'] = "is_active = true";
-        $clausulas['order_by'] = "nombre";
+    public function index(array $datos = array(), $is_ajax = false, $order_type = 'asc' ){
         
-        if ( ! $filas = \modelos\Datos_SQL::select( $clausulas, self::$tabla_j)) {
-            $datos['mensaje'] = 'Lista no disponibe, sentimos las molestias';
-            \core\Distribuidor::cargar_controlador('mensajes', 'mensaje', $datos);
-            return;
+        //Realizamos la busqueda
+        $post = \core\HTTP_Requerimiento::post();
+        //var_dump($post);
+        if(isset($post['is_ajax'])){
+            $is_ajax = $post['is_ajax'];
         }
-        //var_dump($filas);
-        $datos['jugadores'] = $filas;
+        if(isset($post['order_type'])){
+            if($post['order_type'] === 'desc'){
+                $desc = true;
+                $order_type = 'asc';
+            }else{
+                $desc = false;
+                $order_type = 'desc';
+            }
+        }
+        
+        if( isset($post['field']) ){
+            //$datos = unserialize($post['datos']['jugadores']);
+            //var_dump($datos);
+            $datos['jugadores'] = \modelos\players::selectPlayers();
+            \core\tools::ordenarArray($datos['jugadores'], $post['field'], $desc);
+        }else{
+            $datos['jugadores'] = \modelos\players::selectPlayers();
+            //$datos['bienes'] = self::buscarInmuebles($post);
+        }
+
         //Mostramos los datos a modificar en formato europeo. Convertimos el formato de MySQL a europeo para su visualización
         foreach ($datos['jugadores'] as &$jugador) {
             self::convertir_formato_mysql_a_ususario($jugador);
         }
-
-        $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
-        $http_body = \core\Vista_Plantilla::generar('DEFAULT', $datos);
-        \core\HTTP_Respuesta::enviar($http_body);
-            
-    }   
+        
+        //Extraemos los equipos de los jugadores
+        $vista = \modelos\Datos_SQL::get_prefix_tabla(self::$vista);
+        $sql = "select id, raza from $vista where is_active = true order by raza";
+        $filas_vista = \modelos\Datos_SQL::execute( $sql );
+        
+        foreach ($filas_vista as $fila_vista) {
+            foreach ($datos['jugadores'] as &$jugador) {
+                if($fila_vista['id'] == $jugador['id']){
+                    $jugador['equipos'][] = $fila_vista['raza'];
+                }
+            }
+        }
+        
+        $datos['values']['order_type'] = $order_type;
+        if($is_ajax){
+            $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
+            echo $datos['view_content'];
+        }else{
+            $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
+            $http_body = \core\Vista_Plantilla::generar('DEFAULT', $datos);
+            \core\HTTP_Respuesta::enviar($http_body);
+        }   
+    }
     
     /**
      * Presenta un formulario para insertar nuevas filas a la tabla
@@ -183,6 +219,7 @@ class players extends \core\Controlador {
                 }
             }
         }
+        //exit;
 /*
         if ( ! $validacion) //Devolvemos el formulario para que lo intente corregir de nuevo
                 \core\Distribuidor::cargar_controlador(self::$controlador, 'form_modificar', $datos);
@@ -192,7 +229,7 @@ class players extends \core\Controlador {
                 \core\Distribuidor::cargar_controlador(self::$controlador, 'index', $datos);		
         }
  */       
-
+        
         if ( ! $validacion) //Devolvemos el formulario para que lo intente corregir de nuevo
                 $this->cargar_controlador(self::$controlador, 'form_modificar',$datos);
         else {
@@ -210,19 +247,19 @@ class players extends \core\Controlador {
         
         $datos["form_name"] = __FUNCTION__;
 
-        \core\HTTP_Requerimiento::request_come_by_post();
-
+        //\core\HTTP_Requerimiento::request_come_by_post();
+        
         $validaciones= \modelos\players::$validaciones_delete;
         
         if ( ! $validacion = ! \core\Validaciones::errores_validacion_request($validaciones, $datos)) {
-            $datos['mensaje'] = 'Datos erróneos para identificar el artículo a borrar';
-            $datos['url_continuar'] = \core\URL::http('?menu='.self::$tabla.'');
+            $datos['mensaje'] = 'Datos erróneos para identificar el jugador a borrar';
+            $datos['url_continuar'] = \core\URL::http('?menu='.self::$tabla_j.'');
             \core\Distribuidor::cargar_controlador('mensajes', 'mensaje', $datos);
             return;
         }
         else {
             $clausulas['where'] = " id = {$datos['values']['id']} ";
-            if ( ! $filas = \modelos\Datos_SQL::select( $clausulas, self::$tabla)) {
+            if ( ! $filas = \modelos\Datos_SQL::select( $clausulas, self::$tabla_j)) {
                 $datos['mensaje'] = 'Error al recuperar la fila de la base de datos';
                 \core\Distribuidor::cargar_controlador('mensajes', 'mensaje', $datos);
                 return;
@@ -245,7 +282,7 @@ class players extends \core\Controlador {
          \core\HTTP_Requerimiento::request_come_by_post();
 
         $validaciones=array(
-            "id" => "errores_requerido && errores_numero_entero_positivo && errores_referencia:id/".self::$tabla."/id"
+            "id" => "errores_requerido && errores_numero_entero_positivo && errores_referencia:id/".self::$tabla_j."/id"
         );
         if ( ! $validacion = ! \core\Validaciones::errores_validacion_request($validaciones, $datos)) {
             $datos['mensaje'] = 'Datos erróneos para identificar el artículo a borrar';
@@ -254,9 +291,19 @@ class players extends \core\Controlador {
             return;
         }else{
             //Eliminamos la foto y el manual de nuestra carpeta, debemos de hacerlo lo primero    
-            self::borrar_files($datos);
+            //self::borrar_files($datos);
             
-            if ( ! $validacion = \modelos\Datos_SQL::delete($datos["values"], self::$tabla)) {// Devuelve true o false
+            //Borrado:
+            //Borrado normal:
+            $validacion = \modelos\Datos_SQL::delete($datos["values"], self::$tabla_j);
+            //Borrado lógico:
+//            $fila = array(
+//                'id' => $datos["values"]['id'],
+//                'is_active' => 'false',
+//            );
+//            $validacion = \modelos\Datos_SQL::update($fila, self::$tabla_j);
+            
+            if ( ! $validacion ) {// Devuelve true o false
                 $datos['mensaje'] = 'Error al borrar en la bd';
                 $datos['url_continuar'] = \core\URL::http('?menu='.self::$tabla.'');
                 \core\Distribuidor::cargar_controlador('mensajes', 'mensaje', $datos);

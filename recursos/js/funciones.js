@@ -110,12 +110,46 @@ function ejecutarYCerrarVentana(uri){
 }
 
 function abrirVentana_altasCSV(){
-    url = host+name_app+'/teams/altasCSV';
-    //url = '<?php echo URL_ROOT ?>teams/altasCSV';
+    url = host+name_app+'/skills/altasCSV';
+    //url = '<?php echo URL_ROOT ?>skills/altasCSV';
     //alert(url);
     ventana2=window.open(url,'Alta por CSV','width=600, height=600');
     ventana2.window.moveTo(300,100);
     ventana2.window.focus();
+}
+
+/**
+ * Función para ordenar mediante ajax la lista de jugadores
+ */
+$(document).ready(function(){        
+    //Mostrar por ajax la imagen previa
+    $(".orden_columna").click(function(event){
+        var x = $(event.target);
+        field = x.data('field');
+        orden = x.data('ord');
+        //jugadores = x.data('datos');
+        //var imagenWeb = event.target.getAttribute('data-url');
+        //alert(field);
+        
+        //$(id).html('<p style="text-align: center;margin-top: 5%;"><img src="../home/recursos/imagenes/ajax-loader.gif" /></p>');
+
+        //Ordenar por el campo: 3 formas:
+        ordenarTabla(field,orden); //it works
+        //conAjax1(imagenWeb); //it works
+        //conAjax2(imagenWeb); //it works
+    });
+});
+
+function ordenarTabla(field,order,jugadores){
+    //alert(order);
+    jQuery.post(
+        host+name_app+'/players/index'
+        ,{is_ajax: "true", field: field, order_type: order }
+        ,function(data, textStatus, jqXHR) {
+            $("#view_content").html(data);
+        }
+        
+    );
 }
 
 function insertarFichero_altasCSV(){

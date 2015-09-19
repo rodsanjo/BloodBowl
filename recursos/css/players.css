@@ -15,11 +15,6 @@ root {
 .fdderecha1 {float:right; width: 25%;}
 .fdderecha2 {float: left; width: 25%;}
 
-.f50izq{
-    float: left;
-    width: 50%;
-}
-.f50der{
-    float: right;
-    width: 50%;
+.orden_columna{
+    cursor: pointer;
 }

@@ -21,10 +21,17 @@
     </div>
     <div >
         <div class="teu">
-            <div id="menu_izq">
-                <?php 
-                    include PATH_APPLICATION_APP."vistas/zonas/menu_izq.php";
-                ?>		
+            <div id="sidebar_left">
+                <div id="menu_izq">
+                    <?php 
+                        include PATH_APPLICATION_APP."vistas/zonas/menu_izq.php";
+                    ?>		
+                </div>
+                <div id="cuadro_herramientas">
+                    <?php 
+                        include PATH_APPLICATION_APP."vistas/zonas/cuadro_herramientas.php";
+                    ?>
+                </div>
             </div>
             <div id="view_content">
                 <?php
@@ -82,15 +89,15 @@ heredoc;
 <div id='globals'>
     <?php
   //      var_dump($datos);
-        print "<pre>"; 
-          print_r($GLOBALS);
+//        print "<pre>"; 
+//          print_r($GLOBALS);
 //          print("\$_GET "); print_r($_GET);
 //          print("\$_POST ");print_r($_POST);
 //          print("\$_COOKIE ");print_r($_COOKIE);
 //          print("\$_REQUEST ");print_r($_REQUEST);
 //          print("\$_SESSION ");print_r($_SESSION);
 //          print("\$_SERVER ");print_r($_SERVER);
-        print "</pre>";
+//        print "</pre>";
 //            print("xdebug_get_code_coverage() ");
 //            var_dump(xdebug_get_code_coverage());
     ?>

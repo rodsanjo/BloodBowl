@@ -27,6 +27,24 @@ class skills{    //la clase se tiene que llamar igual que el archivo
         $siglasTipos = \modelos\Modelo_SQL::execute($sql);
         return $siglasTipos;
     }
+    
+    public static $validaciones_insert = array(
+        "nombre" => "errores_requerido && errores_texto"
+        ,"tipo" => "errores_texto"
+        ,"descripcion" => "errores_texto"
+    );
+
+    public static $validaciones_update = array(
+        "id" => "errores_requerido && errores_numero_entero_positivo && errores_referencia:id/jugadores/id"
+        ,"nombre" => "errores_requerido && errores_texto"
+        ,"tipo" => "errores_texto"
+        ,"descripcion" => "errores_texto"
+        
+    );
+
+    public static $validaciones_delete = array(
+        "id" => "errores_requerido && errores_numero_entero_positivo && errores_referencia:id/habilidades/id"
+    );
 
     
 }

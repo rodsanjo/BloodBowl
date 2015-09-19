@@ -106,7 +106,7 @@
         
         
         <div>
-            <div class="f50izq">
+            <div class="col_50_izq">
                 <b>Tipo de habilidades normales:</b><br />
                 <?php
                 $siglasTipos = \modelos\skills::getTipos();
@@ -117,7 +117,7 @@
                     if(isset($datos['values']['tipo_hab_normal']) && in_array($sigla['tipo'], $datos['values']['tipo_hab_normal']) ){
                         $checked = "checked='checked'";
                     }
-                    echo "<input id='hab_norm' name='tipo_hab_normal' type='checkbox' value='{$sigla['tipo']}' $checked/> $nombreTipo";
+                    echo "<input name='tipo_hab_normal[]' type='checkbox' value='{$sigla['tipo']}' $checked/> $nombreTipo";
                 }
                 ?>
 <!--                <input id='hab_norm' name='tipo_hab_normal' type='checkbox' value='G' /> General
@@ -126,7 +126,7 @@
                 <input id='hab_norm' name='tipo_hab_normal' type='checkbox' value='F' /> Fuerza
                 <input id='hab_norm' name='tipo_hab_normal' type='checkbox' value='M' /> Mutación-->
             </div>
-            <div class="f50der">
+            <div class="col_50_der">
                 <b>Tipo de habilidades con resultado doble:</b><br />
                 <?php
                 foreach ($siglasTipos as $sigla) {
@@ -135,7 +135,7 @@
                     if(isset($datos['values']['tipo_hab_doble']) && in_array($sigla['tipo'], $datos['values']['tipo_hab_doble']) ){
                         $checked = "checked='checked'";
                     }
-                    echo "<input id='hab_dbl' name='tipo_hab_doble' type='checkbox' value='{$sigla['tipo']}' $checked/> $nombreTipo";
+                    echo "<input name='tipo_hab_doble[]' type='checkbox' value='{$sigla['tipo']}' $checked/> $nombreTipo";
                 }
                 ?>
             </div>
@@ -143,7 +143,7 @@
         
         <b>Coste:</b><input id='coste' name='coste' type='text' size='8'  maxlength='12' value='<?php echo \core\Array_Datos::values('coste', $datos); ?>'/>
         monedas
-        <?php echo \core\HTML_Tag::span_error('precio', $datos); ?>
+        <?php echo \core\HTML_Tag::span_error('coste', $datos); ?>
         <br />
 <!--        
         <label for="num_min">Cantidad mínima:</label><input id='num_min' name='num_min' type='text' size='1'  maxlength='2' value='<?php echo \core\Array_Datos::values('num_min', $datos); ?>'/>
@@ -194,12 +194,13 @@
         
         <!--<button type='button' onclick='window.location.assign("<?php echo $datos['url_cancelar']; ?>");' class="btn-default botonAdmin">Cancelar</button>-->
         <?php
-        if($datos['controlador_metodo'] != 'form_insertar'){
+        if($datos['controlador_metodo'] != 'form_insertar' && \core\Usuario::tiene_permiso('players', 'validar_form_borrar') ){
             $id = \core\Array_Datos::values('id', $datos);
             //echo \core\HTML_Tag::a_boton_onclick("Borrar", array("players", "form_borrar", $id));
             $uri = \core\URL::http_generar('players/form_borrar');
-            $onclick = "onclick='submit_post_request_form(\'$uri\', \'$id\')";
-            echo "<input type='button' $onclick value='Borrar' class='btn-default botonAdmin' style='background:rgb(255,167,115);float: right;'/>";
+            //$onclick = "onclick='submit_post_request_form(\'$uri\', \'$id\')";
+            $onclick = \core\URL::generar($datos['controlador_clase'].'/form_borrar/'.$id);
+            echo "<a href=\"$onclick\"><input type='button' value='Borrar' class='btn-default botonAdmin' style='background:rgb(255,167,115);float: right;'/></a>";
         }?>
     </fieldset>
 </form>

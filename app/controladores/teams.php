@@ -5,7 +5,7 @@ class teams extends \core\Controlador {
     private static $tabla_e = 'equipos';
     private static $tabla_j = 'jugadores';
     
-    private static $controlador = 'teams';
+    public static $controlador = 'teams';
     
     public function index(array $datos = array() ){
         //\core\http_requermiento::request_come_by_post();
@@ -185,17 +185,6 @@ class teams extends \core\Controlador {
         }  
         
 
-    }
-    
-    public static function altasCSV(array $datos=array()){
-        //we show in a new window the rules to upload a CSV file
-        $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
-        $http_body = \core\Vista_Plantilla::generar('DEFAULT', $datos);
-        \core\HTTP_Respuesta::enviar($http_body);
-    }
-    
-    public static function insetar_altasCSV(){
-        
     }
     
     /**

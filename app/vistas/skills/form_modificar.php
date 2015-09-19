@@ -1,5 +1,5 @@
 <div>
-    <h2>Modificar jugador: <i><?php echo \core\Array_Datos::values('nombre', $datos); ?></i></h2>
+    <h2>Editar habilidad: <i><?php echo \core\Array_Datos::values('nombre', $datos); ?></i></h2>
     <?php include "form_and_inputs.php"; ?>
     
     <script type='text/javascript'>

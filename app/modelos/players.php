@@ -48,8 +48,8 @@ class players{    //la clase se tiene que llamar igual que el archivo
         ,"ag" => "errores_requerido && errores_numero_entero_positivo"
         ,"ar" => "errores_requerido && errores_numero_entero_positivo"
         ,"habilidades" => "errores_texto"
-        ,"tipo_hab_normal" => "errores_texto"
-        ,"tipo_hab_doble" => "errores_texto"
+        ,"tipo_hab_normal[]" => "errores_texto"
+        ,"tipo_hab_doble[]" => "errores_texto"
         ,"coste" => "errores_precio_entero"
         ,"num_min" => "errores_numero_entero_positivo"
         ,"num_max" => "errores_numero_entero_positivo"
@@ -66,8 +66,8 @@ class players{    //la clase se tiene que llamar igual que el archivo
         ,"ag" => "errores_requerido && errores_numero_entero_positivo"
         ,"ar" => "errores_requerido && errores_numero_entero_positivo"
         ,"habilidades" => "errores_texto"
-        ,"tipo_hab_normal" => "errores_texto"
-        ,"tipo_hab_doble" => "errores_texto"
+        ,"tipo_hab_normal[]" => "errores_texto"
+        ,"tipo_hab_doble[]" => "errores_texto"
         ,"coste" => "errores_precio_entero"
         ,"num_min" => "errores_numero_entero_positivo"
         ,"num_max" => "errores_numero_entero_positivo"
@@ -93,9 +93,26 @@ class players{    //la clase se tiene que llamar igual que el archivo
     private static function insertPlayer($data){
         $player = array();
         foreach ($data as $key => $value) {
-            if( in_array( $key , array('nombre','posicion_id','mo', 'fu','ag','ar','habilidades','tipo_habilidades_normal','tipo_habilidades_doble','coste','jugador_estrella') ) )
+            if( in_array( $key , array('nombre','posicion_id','mo', 'fu','ag','ar','habilidades','tipo_hab_normal','tipo_hab_doble','coste','jugador_estrella') ) )
                 $player[$key] = $value;
         }
+        
+        if(isset($player['tipo_hab_normal'])){
+            $tipo_hab_normal = $player['tipo_hab_normal'];
+            $player['tipo_hab_normal'] = null;
+            foreach ($tipo_hab_normal as $tipo_hab) {
+                $player['tipo_hab_normal'] .= $tipo_hab;
+            }
+        }
+        
+        if(isset($player['tipo_hab_doble'])){
+            $tipo_hab_normal = null;
+            foreach ($player['tipo_hab_doble'] as $tipo_hab) {
+                $tipo_hab_normal .= $tipo_hab;
+            }
+            $player['tipo_hab_doble'] = $tipo_hab_normal;
+        }
+        
         if(isset($data['is_active']))
             $player['is_active'] = $data['is_active'];
         
@@ -132,9 +149,26 @@ class players{    //la clase se tiene que llamar igual que el archivo
     private static function updatePlayer($data){
         $player = array();
         foreach ($data as $key => $value) {
-            if( in_array( $key , array('id','nombre','posicion_id','mo', 'fu','ag','ar','habilidades','tipo_habilidades_normal','tipo_habilidades_doble','coste','jugador_estrella') ) )
+            if( in_array( $key , array('id','nombre','posicion_id','mo', 'fu','ag','ar','habilidades','tipo_hab_normal','tipo_hab_doble','coste','jugador_estrella') ) )
                 $player[$key] = $value;
         }
+        
+        if(isset($player['tipo_hab_normal'])){
+            $tipo_hab_normal = $player['tipo_hab_normal'];
+            $player['tipo_hab_normal'] = null;
+            foreach ($tipo_hab_normal as $tipo_hab) {
+                $player['tipo_hab_normal'] .= $tipo_hab;
+            }
+        }
+        
+        if(isset($player['tipo_hab_doble'])){
+            $tipo_hab_normal = null;
+            foreach ($player['tipo_hab_doble'] as $tipo_hab) {
+                $tipo_hab_normal .= $tipo_hab;
+            }
+            $player['tipo_hab_doble'] = $tipo_hab_normal;
+        }
+
         if(isset($data['is_active']))
             $player['is_active'] = $data['is_active'];
         
@@ -154,6 +188,7 @@ class players{    //la clase se tiene que llamar igual que el archivo
         $sql = "select * from $table_je where jugador_id = {$data['id']}";
         $rows = \modelos\Modelo_SQL::execute($sql);
         //Diferencia entre la DB y la modificacion
+        $equipos_jugador = array();
         foreach ($rows as $row) {
             $equipos_jugador[] = $row['equipo_id'];
         }
@@ -207,11 +242,27 @@ class players{    //la clase se tiene que llamar igual que el archivo
         $sql .= " where jugador_id = $player_id";
         
         $ids = \core\sgbd\mysqli::execute($sql);
+        $equipos = null;
         foreach ($ids as $value) {
             $equipos[] = $value['equipo_id'];
         }
         //var_dump($equipos);
         return $equipos;
+    }
+    
+    public static function selectPlayers(array $clausulas = array()){
+        //var_dump($post);
+        $clausulas['where'] = "is_active = true";
+        $clausulas['order_by'] = "nombre";
+        //$clausulas['group_by'] = "id";
+        
+        if ( ! $filas = \modelos\Datos_SQL::select( $clausulas, self::$table_j)) {
+            $datos['mensaje'] = 'Lista no disponibe, sentimos las molestias';
+            \core\Distribuidor::cargar_controlador('mensajes', 'mensaje', $datos);
+            return;
+        }
+        
+        return $filas;
     }
 }
 ?>
