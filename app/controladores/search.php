@@ -2,36 +2,68 @@
 namespace controladores;
 
 class search extends \core\Controlador {
+    
+    private static $table_j = 'jugadores';
+    private static $table_s = 'habilidades';
+    private static $table_e = 'equipos';
+    private static $table_h = 'habilidades';
 
 public function index(array $datos = array()){
         
         //Realizamos la busqueda
         $post = \core\HTTP_Requerimiento::post();
-        //var_dump($post);
+        var_dump($post);
         
-        if( isset($post['datos'])){
-            $datos = unserialize($post['datos']);
-            //var_dump($datos);
-            if( isset($post['ordenar_por']) ){
-                if( $post['ordenar_por'] === 'id desc' ){
-                    arsort($datos['bienes']);   //No usamos krsort() pues por POST nos viene la ordenacion aleatoria en que se mostraron inicialmente
-                }elseif( $post['ordenar_por'] === 'precio_venta' ){
-                    self::ordenarArray($datos['bienes'], 'precio_venta', true);
-                }elseif( $post['ordenar_por'] === 'precio_venta desc' ){
-                    self::ordenarArray($datos['bienes'], 'precio_venta', false);
-                }
-            }
+        if( isset($post['buscar_en'])){
+            $clausula = self::getTabla($post, $tabla);
+            $vista = $post['buscar_en'];
         }else{
-            $datos['bienes'] = $this->buscarInmuebles($post);
-            //$datos['bienes'] = self::buscarInmuebles($post);
+            $tabla = self::$table_j;
+            $clausula['where'] = " nombre like '%{$post['nombre']}%' ";
+            $vista = 'players';
         }
 
-        $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
+        $filas = \modelos\Datos_SQL::select( $clausula, $tabla);
+        $datos[$tabla] = $filas;
+        
+        if($tabla == 'jugadores'){
+            $jugador['equipos'] = \modelos\players::getTeamsOfPlayers($datos);
+        }elseif($tabla == 'equipos'){
+            foreach ($filas as $key => $equipo) {  //For if it comes with several teams,
+                $datos['equipos'][$key]['equipo'] = $equipo; // $equipo = $filas[$key];        
+                $datos['equipos'][$key]['jugadores'] = \modelos\teams::getPlayers_by_team($equipo);
+            }
+        }
+        
+        //Search tiene 3 posibles vistas: players, teams y skills
+        $datos['view_content'] = \core\Vista::generar($vista, $datos);
         $http_body = \core\Vista_Plantilla::generar('DEFAULT',$datos);
         \core\HTTP_Respuesta::enviar($http_body);
         
     }
     
+    private static function getTabla( array $post, &$tabla){
+        switch ($post['buscar_en']){
+            case 'players':
+                $tabla = self::$table_j;
+                $clausula['where'] = " nombre like '%{$post['nombre']}%' ";
+                break;
+            case 'teams':
+                $tabla = self::$table_e;
+                $clausula['where'] = " raza like '%{$post['nombre']}%' ";
+                break;
+            case 'skills':
+                $tabla = self::$table_s;
+                $clausula['where'] = " nombre like '%{$post['nombre']}%' ";
+                $clausula['where'] .= " or descripcion like '%{$post['nombre']}%' ";
+                break;
+            default:
+                $tabla = self::$table_j;
+                $clausula['where'] = " nombre like '%{$post['nombre']}%' ";
+        }
+        return $clausula;
+    }
+
     private static function buscarInmuebles(array $post = array()){
         //var_dump($post);
         //Clausulas para la busqueda:

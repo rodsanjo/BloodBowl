@@ -42,17 +42,7 @@ class players extends \core\Controlador {
         }
         
         //Extraemos los equipos de los jugadores
-        $vista = \modelos\Datos_SQL::get_prefix_tabla(self::$vista);
-        $sql = "select id, raza from $vista where is_active = true order by raza";
-        $filas_vista = \modelos\Datos_SQL::execute( $sql );
-        
-        foreach ($filas_vista as $fila_vista) {
-            foreach ($datos['jugadores'] as &$jugador) {
-                if($fila_vista['id'] == $jugador['id']){
-                    $jugador['equipos'][] = $fila_vista['raza'];
-                }
-            }
-        }
+        $jugador['equipos'] = \modelos\players::getTeamsOfPlayers($datos);        
         
         $datos['values']['order_type'] = $order_type;
         if($is_ajax){

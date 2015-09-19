@@ -7,6 +7,8 @@ class players{    //la clase se tiene que llamar igual que el archivo
     private static $table_pos = 'posiciones';
     private static $table_e = 'equipos';
     private static $table_je = 'jugadores_equipos';
+    
+    private static $vista = 'v_equipo_jugador';
 
     public function __construct(){
         self::setTeams();
@@ -263,6 +265,23 @@ class players{    //la clase se tiene que llamar igual que el archivo
         }
         
         return $filas;
+    }
+    
+    public static function getTeamsOfPlayers(&$datos){
+        //Extraemos los equipos de los jugadores
+        $vista = \modelos\Datos_SQL::get_prefix_tabla(self::$vista);
+        $sql = "select id, raza from $vista where is_active = true order by raza";
+        $filas_vista = \modelos\Datos_SQL::execute( $sql );
+        
+        $jugador['equipos'] = null;
+        foreach ($filas_vista as $fila_vista) {
+            foreach ($datos['jugadores'] as &$jugador) {
+                if($fila_vista['id'] == $jugador['id']){
+                    $jugador['equipos'][] = $fila_vista['raza'];
+                }
+            }
+        }
+        return $jugador['equipos'];
     }
 }
 ?>

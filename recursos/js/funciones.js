@@ -131,7 +131,7 @@ $(document).ready(function(){
         //var imagenWeb = event.target.getAttribute('data-url');
         //alert(field);
         
-        //$(id).html('<p style="text-align: center;margin-top: 5%;"><img src="../home/recursos/imagenes/ajax-loader.gif" /></p>');
+        $(view_content).html('<p style="text-align: center;margin-top: 5%;"><img src="../home/recursos/imagenes/ajax-loader.gif" /></p>');
 
         //Ordenar por el campo: 3 formas:
         ordenarTabla(field,orden); //it works
