@@ -29,14 +29,14 @@ class skills{    //la clase se tiene que llamar igual que el archivo
     }
     
     public static $validaciones_insert = array(
-        "nombre" => "errores_requerido && errores_texto"
+        "nombre" => "errores_requerido && errores_texto && errores_unicidad_insertar:nombre/habilidades/nombre"
         ,"tipo" => "errores_texto"
         ,"descripcion" => "errores_texto"
     );
 
     public static $validaciones_update = array(
-        "id" => "errores_requerido && errores_numero_entero_positivo && errores_referencia:id/jugadores/id"
-        ,"nombre" => "errores_requerido && errores_texto"
+        "id" => "errores_requerido && errores_numero_entero_positivo && errores_referencia:id/habilidades/id"
+        ,"nombre" => "errores_requerido && errores_texto && errores_unicidad_modificar:id,nombre/habilidades/id,nombre"
         ,"tipo" => "errores_texto"
         ,"descripcion" => "errores_texto"
         

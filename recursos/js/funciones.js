@@ -1,6 +1,10 @@
-host = ''; //Host
+//Host
+host = '';
+name_app = '/bloodbowl/bb'; //añadimos bb por que en Hostinger se hace un lio con la configuracion
+//Localhost:
 host = '/web/jergapps'; //'http://localhost/web/jergapps';
-name_app = '/BloodBowl'
+name_app = '/bloodbowl'
+
 
 /**
  * Función jquery que gestiona el menú izquierdo mostrando y ocultando las distintas opciones
@@ -113,7 +117,7 @@ function abrirVentana_altasCSV(){
     url = host+name_app+'/skills/altasCSV';
     //url = '<?php echo URL_ROOT ?>skills/altasCSV';
     //alert(url);
-    ventana2=window.open(url,'Alta por CSV','width=600, height=600');
+    ventana2=window.open(url,'Alta por CSV','width=700, height=600');
     ventana2.window.moveTo(300,100);
     ventana2.window.focus();
 }

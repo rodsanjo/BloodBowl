@@ -12,7 +12,7 @@ public function index(array $datos = array()){
         
         //Realizamos la busqueda
         $post = \core\HTTP_Requerimiento::post();
-        var_dump($post);
+        //var_dump($post);
         
         if( isset($post['buscar_en'])){
             $clausula = self::getTabla($post, $tabla);
