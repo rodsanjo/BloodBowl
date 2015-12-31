@@ -1,28 +1,19 @@
 # IDE and docs
-nbproject/private/
 nbproject
-*/nbproject
 docs
-
 home
 home/*
-index.php
-app/core/configuracion.php
-*/app/core/configuracion.php
+
+configuracion.php
 
 # DB
-*/db_definition/*
-*/db/*
-db/*
-*db*
+db_definition
+db
 .htaccess
 
-*/docs
 ficheros
-*/ficheros
 imagenes
-*/imagenes/*
-*/sonidos/*
+sonidos
 recursos/sonido/*
 recursos/imagenes/*
 
