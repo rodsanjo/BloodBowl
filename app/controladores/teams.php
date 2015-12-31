@@ -4,6 +4,7 @@ class teams extends \core\Controlador {
     
     private static $tabla_e = 'equipos';
     private static $tabla_j = 'jugadores';
+    private static $tabla_je = 'jugadores_equipos';
     
     public static $controlador = 'teams';
     
@@ -332,6 +333,124 @@ class teams extends \core\Controlador {
         //var_dump($param);
         $param['coste_SO']=  \core\Conversiones::decimal_punto_a_coma_y_miles($param['coste_SO']);        
         //var_dump($param);
+    }
+    
+    public static function form_modificar_relacion(array $datos = array()) {
+
+        $datos["form_name"] = __FUNCTION__;
+
+        \core\HTTP_Requerimiento::request_come_by_post();  //Si viene por POST sigue adelante
+        
+        $relacion = explode('-',$_POST['id']);
+        //var_dump($relacion);
+        $jugador_id = $relacion[0];
+        $equipo_id = $relacion[1];
+        $_POST['jugador_id'] = $relacion[0];
+        $_POST['$equipo_id'] = $relacion[1];
+        $id = \modelos\teams::getId_Relatioship_PlayerTeam($jugador_id,$equipo_id);
+        
+        
+        if ( ! isset($datos["errores"])) { // Si no es un reenvío desde una validación fallida
+            $validaciones = \modelos\teams::$validaciones_update_relationship;
+//            $validaciones=array(
+//                "id" => "errores_requerido && errores_numero_entero_positivo && errores_referencia:id/".self::$tabla_je."/id"
+//            );
+//            if ( ! $validacion = ! \core\Validaciones::errores_validacion_request($validaciones, $datos)) {
+//                $datos['mensaje'] = 'Datos erróneos para identificar el elemento a modificar';
+//                \core\Distribuidor::cargar_controlador('mensajes', 'mensaje', $datos);
+//                return;
+//            }else{
+                //$clausulas['where'] = " id = {$datos['values']['id']} ";
+                $clausulas['where'] = " id = $id ";
+                if ( ! $filas = \modelos\Datos_SQL::select( $clausulas, self::$tabla_je)) {
+                    $datos['mensaje'] = 'Error al recuperar la fila de la base de datos';
+                    \core\Distribuidor::cargar_controlador('mensajes', 'mensaje', $datos);
+                    return;
+                }else{   
+                    $datos['values'] = $filas[0];
+
+                }
+//            }
+        }
+             
+        //Abriremos el formulario en una ventana nueva
+        $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
+        $http_body = \core\Vista_Plantilla::generar('view_content', $datos);
+        \core\HTTP_Respuesta::enviar($http_body);
+    }
+    
+    public static function validar_form_modificar_relacion(array $datos = array()) {
+
+        \core\HTTP_Requerimiento::request_come_by_post();
+        $post = \core\HTTP_Requerimiento::post();
+        //var_dump($post);
+        $validaciones = \modelos\teams::$validaciones_update_relationship;
+        
+        if ( ! $validacion = ! \core\Validaciones::errores_validacion_request($validaciones, $datos)){  //validaciones en PHP
+            $datos["errores"]["errores_validacion"]="Corrija los errores, por favor.";
+        }else{
+            //$validacion = self::comprobar_files($datos);
+            if ($validacion) {
+                
+                if ( ! $validacion = \modelos\teams::update_Relatioship_PlayerTeam($post) ){ // Devuelve true o false
+                    $datos["errores"]["errores_validacion"]="No se han podido grabar los datos en la bd.";
+                }
+                
+            }
+        }var_dump($datos);
+        //exit;
+/*
+        if ( ! $validacion) //Devolvemos el formulario para que lo intente corregir de nuevo
+                \core\Distribuidor::cargar_controlador(self::$controlador, 'form_modificar', $datos);
+        else {
+                $datos = array("alerta" => "Se han modificado correctamente.");
+                // Definir el controlador que responderá después de la inserción
+                \core\Distribuidor::cargar_controlador(self::$controlador, 'index', $datos);		
+        }
+ */       
+        
+        if ( ! $validacion) //Devolvemos el formulario para que lo intente corregir de nuevo
+                $this->cargar_controlador(self::$controlador, 'form_modificar_relacion',$datos);
+        else {
+                $_SESSION["alerta"] = "Se han modificado correctamente los datos";
+                \core\HTTP_Respuesta::set_header_line("location", \core\URL::generar(\core\Distribuidor::get_controlador_instanciado()));
+                \core\HTTP_Respuesta::enviar();
+        }
+        
+        
+        $datos["form_name"] = __FUNCTION__;
+
+        \core\HTTP_Requerimiento::request_come_by_post();  //Si viene por POST sigue adelante
+
+        $validaciones = \modelos\teams::$validaciones_update_relationship;
+        
+        if ( ! isset($datos["errores"])) { // Si no es un reenvío desde una validación fallida
+            $validaciones=array(
+                "id" => "errores_requerido && errores_numero_entero_positivo && errores_referencia:id/".self::$tabla_e."/id"
+            );
+            if ( ! $validacion = ! \core\Validaciones::errores_validacion_request($validaciones, $datos)) {
+                $datos['mensaje'] = 'Datos erróneos para identificar el elemento a modificar';
+                \core\Distribuidor::cargar_controlador('mensajes', 'mensaje', $datos);
+                return;
+            }else{
+                $clausulas['where'] = " id = {$datos['values']['id']} ";
+                if ( ! $filas = \modelos\Datos_SQL::select( $clausulas, self::$tabla_e)) {
+                    $datos['mensaje'] = 'Error al recuperar la fila de la base de datos';
+                    \core\Distribuidor::cargar_controlador('mensajes', 'mensaje', $datos);
+                    return;
+                }else{   
+                    $datos['values'] = $filas[0];
+
+                }
+            }
+        }
+        
+        //Mostramos los datos a modificar en formato europeo. Convertimos el formato de MySQL a europeo
+             
+        //Abriremos el formulario en una ventana nueva
+        $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
+        $http_body = \core\Vista_Plantilla::generar('view_content', $datos);
+        \core\HTTP_Respuesta::enviar($http_body);
     }
 	
 } // Fin de la clase

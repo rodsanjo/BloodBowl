@@ -14,15 +14,21 @@ body{
     background-size: 100%;
     font-size: 16px;
 }
+section{
+    margin: 5px;
+}
 div{
     /*border: yellow 1px solid;*/
 }
 .teu{
 	margin: auto;	/* para centrar la página */
-	width: 1050px;	/* para que el ancho sea fijo */
+	width: 1100px;	/* para que el ancho sea fijo */
         /*width: 90% auto;	/* para que el ancho variable */
 	overflow: hidden;
 	margin-top:0px;
+}
+#contenido{
+        margin-bottom: 10%;
 }
 
 #encabezado{
@@ -35,6 +41,9 @@ div{
     float: left;
 }
 
+#menu_izq{
+    background: rgb(255,255,255);
+}
 #menu_izq li , #menu_izq li a{
     cursor: pointer;
     text-decoration: none;
@@ -60,6 +69,12 @@ hr {    /*Anular bootstrap*/
     background: rgb(155,177,198);
     padding: 5px;
     margin-top: 5px;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
+#piej #pie{
+    background: rgb(255,255,255);
 }
 
 #view_content{

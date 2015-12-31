@@ -6,7 +6,7 @@
     ?>   
 </head>
 <body>
-    <div >
+    <section >
         <div id="encabezado">		
             <?php 
                 include PATH_APPLICATION_APP."vistas/zonas/encabezado.php";
@@ -18,8 +18,8 @@
                 //include PATH_APPLICATION_APP."vistas/zonas/menu_up.php";
             ?>		
         </div>
-    </div>
-    <div >
+    </section>
+    <section id="contenido">
         <div class="teu">
             <div id="sidebar_left">
                 <div id="menu_izq">
@@ -43,29 +43,31 @@
                     //include PATH_APPLICATION_APP."vistas/zonas/rigth_column.php";
                 ?>		
             </div>
-
-            <div id="pie" class="pie">
-                <?php 
-                    include PATH_APPLICATION_APP."vistas/zonas/pie.php";
-                ?>
-            </div>
+           
        </div> 
-    </div>
+    </section>
 
-    <div id="piej" class="pie">
-            <div id="conexion">
-                <?php 
-                    //include PATH_APPLICATION_APP."vistas/zonas/form_login.php";
-                ?>  
-            </div>            
-            <div>
-                <?php 
-                    include PATH_HOME."app/vistas/zonas/pie.php";
-                ?>
-            </div>
+    <section id="piej" class="pie">
+        <div id="pie" class="pie">
+            <?php 
+                include PATH_APPLICATION_APP."vistas/zonas/pie.php";
+            ?>
+        </div>
+        <div id="conexion">
+            <?php 
+                //include PATH_APPLICATION_APP."vistas/zonas/form_login.php";
+            ?>  
+        </div>            
+        <div>
+            <?php 
+                include PATH_HOME."app/vistas/zonas/pie.php";
+            ?>
+        </div>
             
-    </div>
-    <?php echo \core\HTML_Tag::post_request_form(); ?>    
+    </section>
+    
+    <!--Para poder enviar los formularios con el id oculto-->
+    <?php echo \core\HTML_Tag::post_request_form(); ?>
 <?php
 if (isset($_SESSION["alerta"])) {
     echo <<<heredoc

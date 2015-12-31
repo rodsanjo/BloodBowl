@@ -1,6 +1,5 @@
 //Host
 host = '';
-name_app = '/bloodbowl/bb'; //añadimos bb por que en Hostinger se hace un lio con la configuracion
 //Localhost:
 host = '/web/jergapps'; //'http://localhost/web/jergapps';
 name_app = '/bloodbowl'
@@ -13,7 +12,7 @@ $(document).ready(function() {
     $("div#menu_izq li span").click (function () {
 //        $("div#menu_izq li ul").slideToggle(3000);
         if ($("div#menu_izq li ul").is(":hidden") ) {
-            $("div#menu_izq li ul").slideDown(3000);
+            $("div#menu_izq li ul").slideDown(1500);
         }else{
             $("div#menu_izq li ul").slideUp(2000);
         }
@@ -144,7 +143,7 @@ $(document).ready(function(){
     });
 });
 
-function ordenarTabla(field,order,jugadores){
+function ordenarTabla(field,order){
     //alert(order);
     jQuery.post(
         host+name_app+'/players/index'

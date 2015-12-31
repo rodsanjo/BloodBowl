@@ -6,14 +6,16 @@ docs
 
 home
 home/*
-
 index.php
 app/core/configuracion.php
-*/index.php
 */app/core/configuracion.php
+
+# DB
 */db_definition/*
 */db/*
 db/*
+*db*
+.htaccess
 
 */docs
 ficheros

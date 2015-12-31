@@ -183,7 +183,7 @@ class players extends \core\Controlador {
          \core\HTTP_Requerimiento::request_come_by_post();
 
         $validaciones = \modelos\players::$validaciones_update;
-
+        
         if ( ! $validacion = ! \core\Validaciones::errores_validacion_request($validaciones, $datos)){  //validaciones en PHP
             $datos["errores"]["errores_validacion"]="Corrija los errores, por favor.";
         }else{
