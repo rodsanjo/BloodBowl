@@ -3,7 +3,7 @@
     <?php echo \core\HTML_Tag::li_menu("item", array("inicio"), "Inicio"); ?>
     <li><span title="<?php echo iText('Equipos', 'dicc'); ?>"><?php echo iText('Equipos', 'dicc'); ?></span>
         <ul id="list_team">
-            <?php echo \core\HTML_Tag::li_menu("subitem", array("teams"), "Todos"); ?>
+            <?php echo \core\HTML_Tag::li_menu("subitem", array("teams"), "Mis oficiales"); ?>
             <?php
             $teams = new \modelos\teams();
             $currents_teams = $teams -> getTeams();

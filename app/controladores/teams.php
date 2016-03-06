@@ -17,9 +17,11 @@ class teams extends \core\Controlador {
             $raza = str_replace('-',' ', $_GET['p3'] );
             $clausulas['where'] = " raza like '%$raza%' ";
         }else{
-            $clausulas['where'] = "";   //Por si alguien maneja la URL sin introducir referencia, mostrará el primero
+            $clausulas['where'] = " 1=1 ";   //Por si alguien maneja la URL sin introducir referencia, mostrará el primero
         }
-        
+
+        $clausulas['where'] .= " and is_active = true ";
+
         if ( ! $filas = \modelos\Datos_SQL::select( $clausulas, self::$tabla_e)) {
             $datos['mensaje'] = 'El equipo no existe, seleccione uno de los indicados en el menú por favor';
             \core\Distribuidor::cargar_controlador('mensajes', 'mensaje', $datos);
@@ -63,7 +65,7 @@ class teams extends \core\Controlador {
             $raza = str_replace('-',' ', $_GET['p3'] );
             $clausulas['where'] = " raza like '%$raza%' ";
         }else{
-            $clausulas['where'] = "";   //Por si alguien maneja la URL sin introducir referencia, mostrará el primero
+            $clausulas['where'] = " 1=1 ";   //Por si alguien maneja la URL sin introducir referencia, mostrará el primero
         }
         
         if ( ! $filas = \modelos\Datos_SQL::select( $clausulas, self::$tabla_e)) {
