@@ -12,10 +12,9 @@
                 include PATH_APPLICATION_APP."vistas/zonas/encabezado.php";
             ?>
         </div>
-        <hr/>
         <div id="menu_up">
             <?php 
-                //include PATH_APPLICATION_APP."vistas/zonas/menu_up.php";
+                include PATH_APPLICATION_APP."vistas/zonas/menu_up.php";
             ?>		
         </div>
     </section>
@@ -24,12 +23,12 @@
             <div id="sidebar_left">
                 <div id="menu_izq">
                     <?php 
-                        include PATH_APPLICATION_APP."vistas/zonas/menu_izq.php";
+                        //include PATH_APPLICATION_APP."vistas/zonas/menu_izq.php";
                     ?>		
                 </div>
-                <div id="cuadro_herramientas">
+                <div>
                     <?php 
-                        include PATH_APPLICATION_APP."vistas/zonas/cuadro_herramientas.php";
+                        //include PATH_APPLICATION_APP."vistas/zonas/cuadro_herramientas.php";
                     ?>
                 </div>
             </div>

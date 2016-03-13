@@ -1,7 +1,7 @@
 //Host
 host = '';
 //Localhost:
-host = '/web/jergapps'; //'http://localhost/web/jergapps';
+//host = '/web/jergapps'; //'http://localhost/web/jergapps';
 name_app = '/bloodbowl'
 
 
@@ -134,7 +134,8 @@ $(document).ready(function(){
         //var imagenWeb = event.target.getAttribute('data-url');
         //alert(field);
         
-        $(view_content).html('<p style="text-align: center;margin-top: 5%;"><img src="../home/recursos/imagenes/ajax-loader.gif" /></p>');
+        //imagen cargando
+        //$(view_content).html('<p style="text-align: center;margin-top: 5%;"><img src="../../home/recursos/imagenes/ajax-loader.gif" /></p>');
 
         //Ordenar por el campo: 3 formas:
         ordenarTabla(field,orden); //it works

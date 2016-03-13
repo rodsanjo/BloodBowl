@@ -37,7 +37,7 @@ div{
         margin-top: 5px;
 }
 #sidebar_left{
-    width: 23%;
+    /*width: 23%;*/
     float: left;
 }
 
@@ -78,8 +78,9 @@ hr {    /*Anular bootstrap*/
 }
 
 #view_content{
-    width: 77%;
-    float: left;
+    width: 85%;
+    margin: auto;
+    /*float: left;*/
 }
 
 /*Modificaciones de bootstrap*/
@@ -95,22 +96,30 @@ hr {    /*Anular bootstrap*/
     margin: 5px;
 }
 
-#conexion{
-    float: right;
-    padding-right: 2%; 
+#encabezado_imagen{
+    float: left;
 }
 
+#conexion{
+    float: right;
+}
+
+#buscador{
+    margin: 5px;
+    float: right;
+}
+/*
 #cuadro_herramientas{
     width: 200px;
     overflow: hidden;
     padding: 15px;
     margin-top: 10px;
     margin-bottom: 10px;
-    background: rgba(155,177,198,0.6) /*gainsboro*/;
+    background: rgba(155,177,198,0.6); /*gainsboro;*//*
     border: solid 0.5px;
     border-radius: 15px;
 }
-
+*/
 .col_50_izq{
     float: left;
     width: 50%;
