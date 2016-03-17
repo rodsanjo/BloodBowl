@@ -1,3 +1,4 @@
+<?php //var_dump($datos) ?>
 <form method='post' name='<?php echo \core\Array_Datos::contenido("form_name", $datos); ?>' action="<?php echo \core\URL::generar($datos['controlador_clase'].'/validar_'.$datos['controlador_metodo']); ?>" enctype='multipart/form-data' onsubmit="return validarForm();">
     <fieldset><legend></legend>
 	<?php echo \core\HTML_Tag::form_registrar($datos["form_name"], "post"); ?>
@@ -39,6 +40,7 @@
             <?php
                 $datos['conferencias'] = \modelos\teams::getConferences();
                 //Por defecto estará seleccionada la vivienda que es el primer elemento de la lista
+                echo "<option value='null' selected='selected'>Ninguna</option>";
                 if (\core\Distribuidor::get_metodo_invocado() == "form_insertar") {
                     echo "<option disabled='true' selected='selected'>Seleccione la conferencia</option>";
                 }
@@ -52,23 +54,50 @@
         </select>
         <br/><br/>
         
-
+        <div class="radio">
         Lado oscuro:
-                
         <?php 
-            if ( isset($datos['values']['lado_oscuro']) && $datos['values']['lado_oscuro'] == 1){
+            if ( isset($datos['values']['lado_oscuro']) && $datos['values']['lado_oscuro'] == 1 ){
                 ?>
-                <input id='lado_oscuro_bien' name='lado_oscuro' type='radio' value='0'/>Del bien 
+            <label>
+                <input id='lado_oscuro_bien' name='lado_oscuro' type='radio' value='0'/>Del bien
+            </label>
+            <label>
                 <input id='lado_oscuro_mal' name='lado_oscuro' type='radio' value='1' checked="checked"/>Del mal
+            </label>
                 <?php
             }else{
                 ?>
+            <label>
                 <input id='lado_oscuro_bien' name='lado_oscuro' type='radio' value='0' checked="checked"/>Del bien 
+            </label>
+            <label>
                 <input id='lado_oscuro_mal' name='lado_oscuro' type='radio' value='1'/>Del mal
+            </label>
                 <?php
             }
-        echo \core\HTML_Tag::span_error('lado_oscuro', $datos); ?>
-        <br/><br/>
+            echo \core\HTML_Tag::span_error('lado_oscuro', $datos); ?>
+            <br/><br/>
+        
+            <?php 
+            if ( isset($datos['values']['is_active']) && $datos['values']['is_active'] == 1 ){
+                $checked1 = 'checked';
+                $checked0 = '';
+            }else{
+                $checked1 = '';
+                $checked0 = 'checked';
+            }
+            ?>
+            Equipo Disponible:
+            <label>
+                <input type="radio" name="is_active" id="is_active" value="1" <?php echo $checked1; ?>>
+                Enabled
+            </label>
+            <label>
+                <input type="radio" name="is_active" id="is_active" value="0" <?php echo $checked0; ?>>
+                Disabled
+            </label>
+        </div>
         
 	<?php echo \core\HTML_Tag::span_error('errores_validacion', $datos); ?>
 	<br/>

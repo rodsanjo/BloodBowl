@@ -18,6 +18,20 @@
                 ?>
             </ul>
         </li>
+        <li class='active has-sub'><a><span>Conferencias</span></a>
+            <ul>
+                <?php
+                    $teams = new \modelos\teams();
+                    $confs = $teams -> getConferences();
+                    
+                    foreach ($confs as $key => $conf) {      
+                        echo "<li class='active has-sub'>";
+                        echo \core\html_tag::a_boton('',array('conferences',"siglas",$conf['siglas'] ), $conf['nombre_es'], array( 'title' => "{$conf['siglas']}" ));
+                        echo "</li>";
+                    }
+                ?>
+            </ul>
+        </li>
         <?php echo \core\HTML_Tag::li_menu("item", array("players"), "Jugadores"); ?>
         <?php echo \core\HTML_Tag::li_menu("item", array("skills"), "Habilidades"); ?>
         <?php echo \core\HTML_Tag::li_menu("item", array("tacticas"), "Tácticas"); ?>

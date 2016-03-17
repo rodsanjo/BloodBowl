@@ -3,7 +3,7 @@ namespace modelos;
 class teams{    //la clase se tiene que llamar igual que el archivo
     
     private static $teams = array();
-    private static $table = 'equipos';
+    private static $table_team = 'equipos';
     private static $table_conf = 'conferencias';
     private static $vista_razas = 'v_equipo_jugador';
     private static $table_je = 'jugadores_equipos';
@@ -13,7 +13,7 @@ class teams{    //la clase se tiene que llamar igual que el archivo
     }
     
     private static function setTeams(){
-        $table = \modelos\Modelo_SQL::get_prefix_tabla( self::$table );
+        $table = \modelos\Modelo_SQL::get_prefix_tabla( self::$table_team );
         $sql = "select id, raza from $table order by raza";
 
         $razas = \modelos\Modelo_SQL::execute($sql);
@@ -42,6 +42,17 @@ class teams{    //la clase se tiene que llamar igual que el archivo
         $conferencias = \core\sgbd\mysqli::execute($sql);
         return $conferencias;
     }
+    
+    public function getTeams_byConferenceName( $conf_nombre_es ){
+        $table = \modelos\Modelo_SQL::get_prefix_tabla( self::$table_conf );
+        $sql = "select * from $table where nombre_es = $conf_nombre_es";
+        $conferencia = \core\sgbd\mysqli::execute($sql);
+        
+        $clausulas['where'] = " {$conferencia['siglas']}";
+        $teams = \modelos\Modelo_SQL::table(self::$table_team)->select($clausulas);
+        
+        return $teams;
+    }
 
     public static function altasCSV(){
         
@@ -54,6 +65,7 @@ class teams{    //la clase se tiene que llamar igual que el archivo
         , "coste_SO" => "errores_precio_entero"
         , "conferencia_siglas" => "errores_texto"
         ,"lado_oscuro" => "errores_texto"
+        ,"is_active" => "errores_texto"
     );
     
     public static $validaciones_update_relationship = array(

@@ -156,6 +156,7 @@ class teams extends \core\Controlador {
             if ($validacion) {
                 //Convertimos a formato MySQL
                 self::convertir_a_formato_mysql($datos['values']);
+                //var_dump($datos['values']);
                 //if ( ! $validacion = \modelos\Modelo_SQL::insert($datos["values"], self::$tabla)) // Devuelve true o false
                 if ( ! $validacion = \modelos\Datos_SQL::table(self::$tabla_e)->update($datos["values"])) // Devuelve true o false
                     $datos["errores"]["errores_validacion"]="No se han podido grabar los datos en la bd.";
@@ -197,7 +198,7 @@ class teams extends \core\Controlador {
      */
     private static function comprobar_files(array &$datos){
         $validacion = true;
-        if ($_FILES["escudo"]["size"]) {
+        if ( isset($_FILES["escudo"]["size"])) {
                 if ($_FILES["escudo"]["error"] > 0 ) {
                     $datos["errores"]["escudo"] = $_FILES["escudo"]["error"];
                 }elseif ( ! preg_match("/image/", $_FILES["escudo"]["type"])) {
@@ -220,7 +221,7 @@ class teams extends \core\Controlador {
     private static function mover_files(array $datos){
         //var_dump($datos);
         $id = $datos["values"]['id'];
-        if ($_FILES["escudo"]["size"]) {
+        if(isset($_FILES["escudo"]["size"])) {
             if ($datos["values"]["escudo"] = self::mover_imagen($id)) {
                 $validacion = \modelos\Modelo_SQL::tabla(self::$tabla_e)->update($datos["values"]);
             }
