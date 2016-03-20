@@ -11,7 +11,7 @@
 
         <label>Escudo:</label>
         <?php
-            if ( isset($datos['values']['foto']) ){
+            if ( isset($datos['values']['escudo']) ){
                 $check = "<img src='".URL_HOME_ROOT."recursos/imagenes/check.jpg' width='40px'/> 
                     <span class='alert alert-warning'><b>¡Cuidado!</b> Si selecciona una nueva imagen sustituirá a la anterior</span>
                     ";
@@ -26,9 +26,9 @@
             echo $check;
         ?>
         
-<!--        <input id='escudo' name='escudo' type='file' size='100'  maxlength='50' value='<?php echo \core\Array_Datos::values('escudo', $datos); ?>'/>
+        <input id='escudo' name='escudo' type='file' value='<?php echo \core\Array_Datos::values('escudo', $datos); ?>'/>
 	<?php echo \core\HTML_Tag::span_error('escudo', $datos); ?>
-	<br />-->
+	<br />
         
         Coste S.O.: <input id='coste_SO' name='coste_SO' type='text' size='6'  maxlength='12' value='<?php echo \core\Array_Datos::values('coste_SO', $datos); ?>'/>
         &nbsp;monedas

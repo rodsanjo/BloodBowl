@@ -25,7 +25,7 @@
   background: -o-linear-gradient(top, #333333 0%, #141414 100%);
   background: -ms-linear-gradient(top, #333333 0%, #141414 100%);
   background: linear-gradient(to bottom, #333333 0%, #141414 100%);
-  border-bottom: 2px solid #0fa1e0;
+  border-bottom: 2px solid rgb(155,177,198)/*#0fa1e0*/;
   width: auto;
 }
 #cssmenu:after,
@@ -85,7 +85,7 @@
   bottom: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-bottom: 10px solid #0fa1e0;
+  border-bottom: 10px solid rgb(155,177,198)/*#0fa1e0*/;
   margin-left: -10px;
 }
 #cssmenu > ul > li:first-child > a {
@@ -136,12 +136,12 @@
   right: 0;
 }
 #cssmenu .has-sub ul li {
-  *margin-bottom: -1px;
+  margin-bottom: -1px;
 }
 #cssmenu .has-sub ul li a {
-  background: #0fa1e0;
+  background: rgb(155,177,198)/*#0fa1e0*/;
   border-bottom: 1px dotted #31b7f1;
-  font-size: 11px;
+  font-size: 12px;
   filter: none;
   display: block;
   line-height: 120%;

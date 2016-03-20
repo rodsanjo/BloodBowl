@@ -1,10 +1,10 @@
 <div id='cssmenu'>
     <ul>
         <?php echo \core\HTML_Tag::li_menu("item", array("inicio"), "Inicio"); ?>
-        <li class='active has-sub'><a><span>Equipos</span></a>
-            <ul>
-                <?php echo \core\HTML_Tag::li_menu("active has-sub", array("teams"), "Mis oficiales"); ?>
-                <?php
+        <li class='active has-sub'>
+            <?php
+            echo \core\HTML_Tag::a_boton("", array("teams"), "Equipos", array( 'title' => "Mis equipos oficiales") );
+            echo "<ul>";
                     $teams = new \modelos\teams();
                     $currents_teams = $teams -> getTeams();
                     //$currents_teams = \modelos\teams::getTeams();            
@@ -18,13 +18,16 @@
                 ?>
             </ul>
         </li>
-        <li class='active has-sub'><a><span>Conferencias</span></a>
+        <?php
+        $teams = new \modelos\teams();
+        $confs = $teams -> getConferences();
+        echo "<li class='active has-sub'>";
+        echo \core\html_tag::a_boton('',array('conferences',"siglas",$confs[0]['siglas'] ), 'Conferencias', array( 'title' => "{$confs[0]['nombre_es']}" ));
+        ?>
             <ul>
                 <?php
-                    $teams = new \modelos\teams();
-                    $confs = $teams -> getConferences();
-                    
-                    foreach ($confs as $key => $conf) {      
+                    unset($confs[0]);
+                    foreach ($confs as $key => $conf) {    
                         echo "<li class='active has-sub'>";
                         echo \core\html_tag::a_boton('',array('conferences',"siglas",$conf['siglas'] ), $conf['nombre_es'], array( 'title' => "{$conf['siglas']}" ));
                         echo "</li>";

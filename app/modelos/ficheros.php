@@ -96,7 +96,8 @@ class ficheros {
     public static function crearCarpeta($path, $nombre_carpeta){
         $pathname = $path.DS.$nombre_carpeta;
         $chmod = 0777;  //Permisos. En windows no sirve
-        if(!is_dir($pathname)){ echo $pathname;
+        if(!is_dir($pathname)){ 
+            //echo $pathname;
             mkdir( $pathname, $chmod ); 
         }
     }

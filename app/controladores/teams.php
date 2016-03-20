@@ -146,7 +146,7 @@ class teams extends \core\Controlador {
     public function validar_form_modificar(array $datos=array()) {
         
          \core\HTTP_Requerimiento::request_come_by_post();
-
+         
         $validaciones = \modelos\teams::$validaciones_update;
 
         if ( ! $validacion = ! \core\Validaciones::errores_validacion_request($validaciones, $datos)){  //validaciones en PHP
@@ -198,17 +198,18 @@ class teams extends \core\Controlador {
      */
     private static function comprobar_files(array &$datos){
         $validacion = true;
-        if ( isset($_FILES["escudo"]["size"])) {
-                if ($_FILES["escudo"]["error"] > 0 ) {
-                    $datos["errores"]["escudo"] = $_FILES["escudo"]["error"];
-                }elseif ( ! preg_match("/image/", $_FILES["escudo"]["type"])) {
-                    $datos["errores"]["escudo"] = "El fichero no es una imagen.";
-                }elseif ($_FILES["escudo"]["size"] > 512*512*1) {
-                    $datos["errores"]["escudo"] = "El tamaño de la imagen debe ser menor que 0,5MB.";
-                }
-                if (isset($datos["errores"]["escudo"])) {
-                    $validacion = false;
-                }
+        //var_dump($_FILES);
+        if ( !empty( $_FILES["escudo"]["size"]) ) {
+            if ($_FILES["escudo"]["error"] > 0 ) {
+                $datos["errores"]["escudo"] = $_FILES["escudo"]["error"];
+            }elseif ( ! preg_match("/image/", $_FILES["escudo"]["type"])) {
+                $datos["errores"]["escudo"] = "El fichero no es una imagen.";
+            }elseif ($_FILES["escudo"]["size"] > 512*512*1) {
+                $datos["errores"]["escudo"] = "El tamaño de la imagen debe ser menor que 0,5MB.";
+            }
+            if (isset($datos["errores"]["escudo"])) {
+                $validacion = false;
+            }
         }
         return $validacion;
     }
@@ -221,6 +222,7 @@ class teams extends \core\Controlador {
     private static function mover_files(array $datos){
         //var_dump($datos);
         $id = $datos["values"]['id'];
+        //var_dump($_FILES);
         if(isset($_FILES["escudo"]["size"])) {
             if ($datos["values"]["escudo"] = self::mover_imagen($id)) {
                 $validacion = \modelos\Modelo_SQL::tabla(self::$tabla_e)->update($datos["values"]);
@@ -239,16 +241,20 @@ class teams extends \core\Controlador {
      */
     private static function mover_imagen($id, $ref = null) {
         // Ahora hay que añadir la foto
-        $extension = substr($_FILES["foto"]["type"], stripos($_FILES["foto"]["type"], "/")+1);
+        $extension = substr($_FILES["escudo"]["type"], stripos($_FILES["escudo"]["type"], "/")+1);
         $nombre = \modelos\ficheros::getNombreCarpeta($id);
-        $foto_path = PATH_APPLICATION."recursos".DS."imagenes".DS."teams".DS.$nombre.".".$extension;
+        $path_imagenes = PATH_APPLICATION."recursos".DS."ficheros".DS."teams";
+        if( ! is_dir($path_imagenes.DS.$nombre) ){
+            mkdir($path_imagenes.DS.$nombre);
+        }
+        $foto_path = $path_imagenes.DS.$nombre.DS.$nombre.".".$extension;
 //					echo __METHOD__;echo $_FILES["foto"]["tmp_name"];  echo $foto_path; exit;
         // Si existe el fichero lo borramos
         if (is_file($foto_path)) {
             unlink($foto_path);
         }
-         
-        $validacion = move_uploaded_file($_FILES["foto"]["tmp_name"], $foto_path);
+        
+        $validacion = move_uploaded_file($_FILES["escudo"]["tmp_name"], $foto_path);
         return ($validacion ? $nombre.".".$extension : false);
     }
     
@@ -287,7 +293,7 @@ class teams extends \core\Controlador {
         $sql = 'select * from '.\core\Modelo_SQL::get_prefix_tabla(self::$tabla).' where id = '.$id;
         $fila = \core\Modelo_SQL::execute($sql);
         
-        $foto = $fila[0]['foto'];
+        $foto = $fila[0]['escudo'];
         //$plano = $fila[0]['plano'];
         
         self::borrar_foto($foto);

@@ -28,7 +28,7 @@ class conferences{    //la clase se tiene que llamar igual que el archivo
         return self::$confs;
     }
     
-    public function setTeams_byConferenceSiglas( $siglas = null ){
+    public static function setTeams_byConferenceSiglas( $siglas = null ){
 
         if( $siglas == 'TMU' ){ //Todos los equipos afiliados
             $clausulas['where'] = "conferencia_siglas != ''";

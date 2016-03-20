@@ -52,10 +52,8 @@ $(document).ready(function(){
     );
 });
 
-/**
- * Función para desplegar las acciones de edición disponibles sobre un jugador o equipo
- */
 $(document).ready(function() {
+    //Función para desplegar las acciones de edición disponibles sobre un jugador o equipo
     $("td.edicion_player").dblclick (function (event) {
         var x = $(event.target);
         jugador_id = x.data('id');
@@ -71,11 +69,17 @@ $(document).ready(function() {
         equipo_id = x.data('id');
         url = x.data('url');
         //alert(url+jugador_id);
-        ventana=window.open(url+equipo_id,'Edicion Raza','width=475, height=600');
+        ventana=window.open(url+equipo_id,'Edicion Raza','width=575, height=600');
         ventana.window.moveTo(200,50);
         ventana.window.focus();
-        
     });
+    $(".hidden_stuffs div").addClass("col-md-3 col-xs-4");
+    $(".hidden_stuffs div").removeClass("col-md-12");
+    //Ocultar tabla de equipo
+    $(".hidden_stuffs .table_team").css("display","none");
+//    $(".hidden_stuffs h2").on("click",function(){
+//        $(".hidden_stuffs .table_team").slideToggle();
+//    });
 });
 
 function ventanaEdicionJugador(jugador_id){
@@ -119,41 +123,6 @@ function abrirVentana_altasCSV(){
     ventana2=window.open(url,'Alta por CSV','width=700, height=600');
     ventana2.window.moveTo(300,100);
     ventana2.window.focus();
-}
-
-/**
- * Función para ordenar mediante ajax la lista de jugadores
- */
-$(document).ready(function(){        
-    //Mostrar por ajax la imagen previa
-    $(".orden_columna").click(function(event){
-        var x = $(event.target);
-        field = x.data('field');
-        orden = x.data('ord');
-        //jugadores = x.data('datos');
-        //var imagenWeb = event.target.getAttribute('data-url');
-        //alert(field);
-        
-        //imagen cargando
-        //$(view_content).html('<p style="text-align: center;margin-top: 5%;"><img src="../../home/recursos/imagenes/ajax-loader.gif" /></p>');
-
-        //Ordenar por el campo: 3 formas:
-        ordenarTabla(field,orden); //it works
-        //conAjax1(imagenWeb); //it works
-        //conAjax2(imagenWeb); //it works
-    });
-});
-
-function ordenarTabla(field,order){
-    //alert(order);
-    jQuery.post(
-        host+name_app+'/players/index'
-        ,{is_ajax: "true", field: field, order_type: order }
-        ,function(data, textStatus, jqXHR) {
-            $("#view_content").html(data);
-        }
-        
-    );
 }
 
 function insertarFichero_altasCSV(){

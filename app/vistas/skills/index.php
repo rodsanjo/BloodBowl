@@ -43,23 +43,26 @@ foreach ($datos['habilidades'] as $key => $hab) {
 
 ?>
     <div id="lista_habs">
-        <h2>Categorías de habilidades</h2>
+        <h1><small>Categorías de habilidades</small></h1>
         <?php
         foreach ($tipos as $tipo => $habilidades) {
             if( count($habilidades) > 1 ){
                 echo "<ul>";
-                echo "<li><h1><small>{$habilidades[0]}</small></h1>";
+                echo "<li><h2><small>{$habilidades[0]}</small></h2>";
                 unset($habilidades[0]);
                 echo '<ul class="list-inline">';
                 foreach ($habilidades as $key => $hab_nomb) {
+                    if($key != 1 ){
+                        echo " - ";
+                    }
                     //$hab_nombr = str_replace(" ", "", $hab_nomb);
                     //echo "<div class='col-lg-2 col-md-3 col-sm-4'><a href='#$hab_nomb'>$hab_nomb</a></div>";
                     echo "<li><a href='#$hab_nomb'>$hab_nomb</a></li>";
                 }
-                echo "</ul></ul><br/>";
+                echo "</ul></ul>";
             }
         }
-        echo "<br/>";
+        //echo "<br/>";
         ?>
     </div>
 
