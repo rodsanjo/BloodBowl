@@ -101,7 +101,7 @@
         </tr></table>
         
         <b>Habilidades:</b><br/>
-        <textarea id="habilidades" name="habilidades" maxlength='300' cols="120" rows="3"><?php echo \core\Array_Datos::values('habilidades', $datos); ?></textarea>
+        <textarea id="habilidades" name="habilidades" maxlength='100' cols="120" rows="3"><?php echo \core\Array_Datos::values('habilidades', $datos); ?></textarea>
         <br/>
         
         

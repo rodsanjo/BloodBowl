@@ -3,7 +3,9 @@
 foreach ($datos['equipos'] as $equipo) {
     //var_dump($equipo);
     echo "<div class='col-md-12'>";
-        echo "<center><h2>{$equipo['equipo']['raza']}</h2></center>";
+        echo "<center><h2 id='{$equipo['equipo']['raza']}'>{$equipo['equipo']['raza']}</h2>";
+        echo \core\HTML_Tag::boton_div_with_data("input-group-addon edicion_team menu_adm", array("teams", "form_modificar", $equipo['equipo']['id']), "Modificar equipo de {$equipo['equipo']['raza']}", array('style' => 'color:#428bca;cursor:pointer;'));
+        echo "</center>";
         $nombre_carpeta = \modelos\ficheros::getNombreCarpeta( $equipo['equipo']['id'] );
         $img = ($equipo['equipo']["escudo"]) ? "<img width='100px;' src='".URL_ROOT."recursos/ficheros/teams/$nombre_carpeta/".$equipo['equipo']["escudo"]."' alt='{$equipo['equipo']['raza']}' title='{$equipo['equipo']['raza']}'/>" :"";
         ?>
@@ -65,9 +67,5 @@ foreach ($datos['equipos'] as $equipo) {
             <p>0-8 Fichas de SO: <?php echo $equipo['equipo']['coste_SO']; ?> monedas cada una.</p>
         </div>
     </div>
-    <?php
-            echo \core\HTML_Tag::boton_div_with_data("input-group-addon edicion_team", array("teams", "form_modificar", $equipo['equipo']['id']), "Modificar equipo de {$equipo['equipo']['raza']}", array('style' => 'color:#428bca;cursor:pointer;'));
-    ?>
-<!--    <br/>-->
     <?php
 }

@@ -73,10 +73,9 @@ $(document).ready(function() {
         ventana.window.moveTo(200,50);
         ventana.window.focus();
     });
-    $(".hidden_stuffs div").addClass("col-md-3 col-xs-4");
-    $(".hidden_stuffs div").removeClass("col-md-12");
+//    $(".hidden_stuffs div").addClass("col-md-2 col-xs-4");
+//    $(".hidden_stuffs div").removeClass("col-md-12");
     //Ocultar tabla de equipo
-    $(".hidden_stuffs .table_team").css("display","none");
 //    $(".hidden_stuffs h2").on("click",function(){
 //        $(".hidden_stuffs .table_team").slideToggle();
 //    });

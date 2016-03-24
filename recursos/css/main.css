@@ -60,14 +60,14 @@ div{
     text-align: center;
 }
 hr {    /*Anular bootstrap*/
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 2px;
+  margin-bottom: 2px;
   border-top: 1px solid #eee;
 }
 
 #piej{
     background: rgb(155,177,198);
-    padding: 5px;
+    padding: 3px 5px;
     margin-top: 5px;
     position: fixed;
     bottom: 0px;
@@ -135,4 +135,9 @@ hr {    /*Anular bootstrap*/
 }
 .col_100 > input{
     margin-left: 30px;
+}
+
+.img_escudo_cuadrado{
+    height: 100px;
+    width: 100px;    
 }

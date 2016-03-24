@@ -9,6 +9,10 @@
 	<?php echo \core\HTML_Tag::span_error('raza', $datos); ?>
 	<br />
 
+        <b>Especies:</b><br/>
+        <textarea id="especies" name="especies" maxlength='50' cols="40" rows="1"><?php echo \core\Array_Datos::values('especies', $datos); ?></textarea>
+        <br/>
+        
         <label>Escudo:</label>
         <?php
             if ( isset($datos['values']['escudo']) ){

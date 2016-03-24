@@ -60,10 +60,11 @@ class teams{    //la clase se tiene que llamar igual que el archivo
     
     public static $validaciones_update = array(
         "id" => "errores_requerido && errores_numero_entero_positivo && errores_referencia:id/equipos/id"
-        , "raza" => "errores_texto"
-        , "escudo" => "errores_texto"
-        , "coste_SO" => "errores_precio_entero"
-        , "conferencia_siglas" => "errores_texto"
+        ,"raza" => "errores_texto"
+        ,"especies" => "errores_texto"
+        //,"escudo" => "errores_texto" //¡¡OJO!! no se debe poner aqui porque borra la imagen si no se envia
+        ,"coste_SO" => "errores_precio_entero"
+        ,"conferencia_siglas" => "errores_texto"
         ,"lado_oscuro" => "errores_texto"
         ,"is_active" => "errores_texto"
     );

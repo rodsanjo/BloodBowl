@@ -1,6 +1,15 @@
 <div id='cssmenu'>
     <ul>
-        <?php echo \core\HTML_Tag::li_menu("item", array("inicio"), "Inicio"); ?>
+        <li class='active has-sub'>
+        <?php echo \core\HTML_Tag::a_boton("item", array("inicio"), "Inicio"); ?>
+            <ul>
+                <li class='has-sub'>
+                    <?php 
+                    echo \core\HTML_Tag::a_boton("", array("inicio","oficiales"), "Mis equipos", array( 'title' => "Mis equipos oficiales") );
+                    ?>
+                </li>
+            </ul>
+        </li>
         <li class='active has-sub'>
             <?php
             echo \core\HTML_Tag::a_boton("", array("teams"), "Equipos", array( 'title' => "Mis equipos oficiales") );
@@ -12,12 +21,26 @@
                         $_team = str_replace(' ','-', $team['raza']);
                         $title = ucwords($team['raza']);
                         echo "<li class='has-sub'>";
-                        echo \core\html_tag::a_boton('',array('teams',"raza",$_team, $team['id']), $team['raza'], array( 'title' => "$title" ));
+                        echo \core\html_tag::a_boton('',array('teams',"raza",$_team ), $team['raza'], array( 'title' => "$title" ));
                         echo "</li>";
                     }
                 ?>
             </ul>
         </li>
+        
+        <li class='active has-sub'><a>Especies</a>
+            <ul>
+                <?php 
+                $especies = array('humanos','orcos','enanos','elfos','caos','animales','criaturas','ultratumba');
+                foreach ($especies as $key => $especie) {
+                    echo "<li class='has-sub'>";
+                    echo \core\html_tag::a_boton('',array('teams',"especie", $especie), $especie, array( 'title' => "$especie" ));
+                    echo "</li>";
+                }
+                ?>
+            </ul>
+        </li>
+        
         <?php
         $teams = new \modelos\teams();
         $confs = $teams -> getConferences();
