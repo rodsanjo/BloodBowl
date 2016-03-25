@@ -3,10 +3,10 @@
 <?php
 //var_dump($datos);
 if( $datos['conf']['siglas'] == 'TMU' ){
-    include PATH_APPLICATION_APP."vistas/zonas/tabla_escudos.php";
+    include PATH_APPLICATION_APP."vistas/zonas/tablas/tabla_escudos.php";
 }else{
-    include PATH_APPLICATION_APP."vistas/zonas/tabla_escudos.php";
-    include PATH_APPLICATION_APP."vistas/zonas/tabla_equipo.php";
+    include PATH_APPLICATION_APP."vistas/zonas/tablas/tabla_escudos.php";
+    include PATH_APPLICATION_APP."vistas/zonas/tablas/tabla_equipo.php";
 }
 ?>
 </div>

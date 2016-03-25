@@ -58,7 +58,18 @@
                 ?>
             </ul>
         </li>
-        <?php echo \core\HTML_Tag::li_menu("item", array("players"), "Jugadores"); ?>
+        
+        <li class='active has-sub'>
+        <?php echo \core\HTML_Tag::a_boton("item", array("players"), "Jugadores"); ?>
+            <ul>
+                <li class='has-sub'>
+                    <?php 
+                    echo \core\HTML_Tag::a_boton("", array("players","star_players"), "Jugadores estrella", array( 'title' => "Jugadores estrella") );
+                    ?>
+                </li>
+            </ul>
+        </li>
+        
         <?php echo \core\HTML_Tag::li_menu("item", array("skills"), "Habilidades"); ?>
         <?php echo \core\HTML_Tag::li_menu("item", array("tacticas"), "Tácticas"); ?>
         <?php echo \core\HTML_Tag::li_menu("item", array("enlaces"), "Links"); ?>

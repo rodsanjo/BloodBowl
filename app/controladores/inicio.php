@@ -13,7 +13,8 @@ class inicio extends \core\Controlador {
     public function oficiales(array $datos = array()){
         $oficial_teams = new \controladores\teams();
         $actived_teams = true;
-        $datos = $oficial_teams->index($datos, $actived_teams);
+        $actived_players = true;
+        $datos = $oficial_teams->index($datos, $actived_teams, $actived_players);
         
         $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
         $http_body = \core\Vista_Plantilla::generar('DEFAULT', $datos);

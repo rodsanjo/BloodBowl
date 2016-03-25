@@ -8,7 +8,7 @@ class teams extends \core\Controlador {
     
     public static $controlador = 'teams';
     
-    public function index(array $datos = array(), $actived_teams = false){
+    public function index(array $datos = array(), $actived_teams = false, $actived_players = false){
         //\core\http_requermiento::request_come_by_post();
         
         if( isset($_POST['id']) && is_int($_POST['id']) ){ //viene el id
@@ -31,8 +31,8 @@ class teams extends \core\Controlador {
         }else{
             //var_dump($filas);
             foreach ($filas as $key => $equipo) {  //For if it comes with several teams,
-                $datos['equipos'][$key]['equipo'] = $equipo; // $equipo = $filas[$key];        
-                $datos['equipos'][$key]['jugadores'] = \modelos\teams::getPlayers_by_team($equipo);
+                $datos['equipos'][$key]['equipo'] = $equipo; // $equipo = $filas[$key];
+                $datos['equipos'][$key]['jugadores'] = \modelos\teams::getPlayers_by_team($equipo, $actived_players);
             }
             /*
             //Usando equipo_id como FK buscamos los detalles de los jugadores

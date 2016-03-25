@@ -29,10 +29,10 @@ class players extends \core\Controlador {
         if( isset($post['field']) ){
             //$datos = unserialize($post['datos']['jugadores']);
             //var_dump($datos);
-            $datos['jugadores'] = \modelos\players::selectPlayers();
+            $datos['jugadores'] = \modelos\players::getPlayers();
             \core\tools::ordenarArray($datos['jugadores'], $post['field'], $desc);
         }else{
-            $datos['jugadores'] = \modelos\players::selectPlayers();
+            $datos['jugadores'] = \modelos\players::getPlayers();
             //$datos['bienes'] = self::buscarInmuebles($post);
         }
 
@@ -52,9 +52,56 @@ class players extends \core\Controlador {
             $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
             $http_body = \core\Vista_Plantilla::generar('DEFAULT', $datos);
             \core\HTTP_Respuesta::enviar($http_body);
-        }   
+        } 
     }
     
+    public function star_players(array $datos = array(), $is_ajax = false, $order_type = 'asc' ){
+        //Realizamos la busqueda
+        $post = \core\HTTP_Requerimiento::post();
+        //var_dump($post);
+        if(isset($post['is_ajax'])){
+            $is_ajax = $post['is_ajax'];
+        }
+        if(isset($post['order_type'])){
+            if($post['order_type'] === 'desc'){
+                $desc = true;
+                $order_type = 'asc';
+            }else{
+                $desc = false;
+                $order_type = 'desc';
+            }
+        }
+        
+        $starPlayer = true;
+        if( isset($post['field']) ){
+            //$datos = unserialize($post['datos']['jugadores']);
+            //var_dump($datos);
+            $datos['jugadores'] = \modelos\players::getPlayers($datos, $starPlayer);
+            \core\tools::ordenarArray($datos['jugadores'], $post['field'], $desc);
+        }else{
+            $datos['jugadores'] = \modelos\players::getPlayers($datos, $starPlayer);
+        }
+
+        //Mostramos los datos a modificar en formato europeo. Convertimos el formato de MySQL a europeo para su visualización
+        foreach ($datos['jugadores'] as &$jugador) {
+            self::convertir_formato_mysql_a_ususario($jugador);
+        }
+        
+        //Extraemos los equipos de los jugadores
+        $jugador['equipos'] = \modelos\players::getTeamsOfPlayers($datos);        
+        
+        $datos['values']['order_type'] = $order_type;
+        if($is_ajax){
+            $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
+            echo $datos['view_content'];
+        }else{
+            $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
+            $http_body = \core\Vista_Plantilla::generar('DEFAULT', $datos);
+            \core\HTTP_Respuesta::enviar($http_body);
+        }
+    }
+
+
     /**
      * Presenta un formulario para insertar nuevas filas a la tabla
      * @param array $datos

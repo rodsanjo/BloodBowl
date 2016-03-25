@@ -7,13 +7,10 @@ if(isset($datos['values']['order_type']))
 else
     $orden = 'desc';
 
-    echo \core\HTML_Tag::a_boton_onclick("btn_derch button", array("players", "form_insertar"), "<span class='glyphicon glyphicon-user' aria-hidden='true'>+</span>", array('title' => 'Nuevo jugador'));
+echo \core\HTML_Tag::a_boton_onclick("btn_derch button", array("players", "form_insertar"), "<span class='glyphicon glyphicon-user' aria-hidden='true'>+</span>", array('title' => 'Nuevo jugador'));
 
-if( !empty($datos['jugadores']) ){
-    include PATH_APPLICATION_APP."vistas/zonas/tablas/tabla_jugadores.php";
-}else{
-    echo "<p>No se ha encontrado ningún resultado</p>";
-}
+include PATH_APPLICATION_APP."vistas/zonas/tablas/tabla_jugadores.php";
+
 ?>
 </div>
                 
@@ -44,7 +41,8 @@ $(document).ready(function(){
 function ordenarTabla(field,order,jugadores){
     //alert(order);
     jQuery.post(
-        host+name_app+'/players/index'
+        host+name_app+'/players/star_players'
+        //,alert(host+name_app+'/players/star_players')
         ,{is_ajax: "true", field: field, order_type: order }
         ,function(data, textStatus, jqXHR) {
             $("#view_content").html(data);

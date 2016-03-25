@@ -56,6 +56,7 @@ class players{    //la clase se tiene que llamar igual que el archivo
         ,"num_min" => "errores_numero_entero_positivo"
         ,"num_max" => "errores_numero_entero_positivo"
         ,"jugador_estrella" => "errores_numero_entero_positivo"
+        ,"is_active" => "errores_numero_entero_positivo"
     );
     
     public static $validaciones_update = array(
@@ -74,7 +75,7 @@ class players{    //la clase se tiene que llamar igual que el archivo
         ,"num_min" => "errores_numero_entero_positivo"
         ,"num_max" => "errores_numero_entero_positivo"
         ,"jugador_estrella" => "errores_numero_entero_positivo"
-        
+        ,"is_active" => "errores_numero_entero_positivo"
     );
 
 
@@ -252,9 +253,15 @@ class players{    //la clase se tiene que llamar igual que el archivo
         return $equipos;
     }
     
-    public static function selectPlayers(array $clausulas = array()){
+    public static function getPlayers(array $clausulas = array(), $starPlayer = false, $is_active = true){
         //var_dump($post);
-        $clausulas['where'] = "is_active = true";
+        if($is_active){
+            $clausulas['where'] = "is_active = true";
+        }
+        if($starPlayer){
+            $clausulas['where'] = "jugador_estrella = true";
+        }
+        
         $clausulas['order_by'] = "nombre";
         //$clausulas['group_by'] = "id";
         
@@ -270,7 +277,7 @@ class players{    //la clase se tiene que llamar igual que el archivo
     public static function getTeamsOfPlayers(&$datos){
         //Extraemos los equipos de los jugadores
         $vista = \modelos\Datos_SQL::get_prefix_tabla(self::$vista);
-        $sql = "select id, raza from $vista where is_active = true order by raza";
+        $sql = "select id, raza from $vista order by raza";
         $filas_vista = \modelos\Datos_SQL::execute( $sql );
         
         $jugador['equipos'] = null;

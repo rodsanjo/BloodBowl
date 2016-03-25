@@ -153,29 +153,37 @@
 	<?php echo \core\HTML_Tag::span_error('num_max', $datos); ?>
         -->
         <br/>
-        Jugador estrella: <input id='jug_estrella' name='jugador_estrella' type='checkbox' value='1' />
+        
+        <?php
+        //Jugador estrela
+        $checked = "";
+        if ( isset($datos['values']['jugador_estrella']) && $datos['values']['jugador_estrella'] == 1 ){
+            $checked = "checked='checked'";
+        }
+        ?>
+        Jugador estrella: <input id='jug_estrella' name='jugador_estrella' type='checkbox' value='1' <?php echo $checked; ?>/>
         <br/>
         
-        <label>Foto:</label>
         <?php
-            if ( isset($datos['values']['foto']) ){
-                $check = "<img src='".URL_HOME_ROOT."recursos/imagenes/check.jpg' width='40px'/> 
-                    <span class='alert alert-warning'><b>¡Cuidado!</b> Si selecciona una nueva imagen sustituirá a la anterior</span>
-                    ";
-            }else{
-                $check = "<img src='".URL_HOME_ROOT."recursos/imagenes/no_check.jpg' width='40px'/> 
-                    <div class='alert alert-info alert-dismissable'>
-                        <button type='button' class='close' data-dismiss='alert'>&times;</button>
-                        <b>¡Atendión!</b> Este jugador aún no tiene ninguna imagen
-                    </div>
-                    ";
-            }
-            echo $check;
+        //Jugador estrela y activo
+        if ( isset($datos['values']['is_active']) && $datos['values']['is_active'] == 1 ){
+            $checked1 = 'checked';
+            $checked0 = '';
+        }else{
+            $checked1 = '';
+            $checked0 = 'checked';
+        }
         ?>
-        
-<!--        <input id='foto' name='foto' type='file' size='100'  maxlength='50' value='<?php echo \core\Array_Datos::values('foto', $datos); ?>'/>
-	<?php echo \core\HTML_Tag::span_error('foto', $datos); ?>
-	<br />-->
+        Jugador es oficial (activo):
+        <label>
+            <input type="radio" name="is_active" id="is_active" value="1" <?php echo $checked1; ?>>
+            Enabled
+        </label>
+        <label>
+            <input type="radio" name="is_active" id="is_active" value="0" <?php echo $checked0; ?>>
+            Disabled
+        </label>
+        <br/><br/>
         
 	
 	<?php

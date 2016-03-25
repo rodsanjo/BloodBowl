@@ -27,10 +27,12 @@ class teams{    //la clase se tiene que llamar igual que el archivo
         return self::$teams;
     }
     
-    public static function getPlayers_by_team($equipo){
+    public static function getPlayers_by_team($equipo, $is_active = false){
         $equipo_id = $equipo['id'];
         $clausulas['where'] = " equipo_id = $equipo_id ";
-        $clausulas['where'] .= " and is_active = 1 ";
+        if($is_active){
+            $clausulas['where'] .= " and is_active = 1 ";
+        }
         $clausulas['order_by'] = " posicion_id ";
 
         return \modelos\Modelo_SQL::table(self::$vista_razas)->select($clausulas);       

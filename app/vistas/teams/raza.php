@@ -5,7 +5,7 @@ $controlador = $datos['controlador_clase'];
 
 echo \core\HTML_Tag::a_boton_onclick("btn_derch button", array("players", "form_insertar"), "<span class='glyphicon glyphicon-user' aria-hidden='true'>+</span>", array('title' => 'Nuevo jugador'));
 
-include PATH_APPLICATION_APP."vistas/zonas/tabla_equipo.php";
+include PATH_APPLICATION_APP."vistas/zonas/tablas/tabla_equipo.php";
 
 //Altas por CSV
 if ( \core\Usuario::tiene_permiso('raza', 'altaCSV')) {

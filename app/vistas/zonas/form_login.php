@@ -13,7 +13,7 @@
               <input type="password" name='password' maxsize='50' value='<?php echo \core\Datos::values('password', $datos) ?>' placeholder="Password" class="form-control" />
             </div>
             
-            <button type="submit" class="btn btn-success">Log in</button>
+            <button type="submit" class="btn btn-success form-control">Log in</button>
             <br/><?php echo \core\HTML_Tag::span_error('validacion', $datos);?>
         </form>
     <?php

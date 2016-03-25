@@ -10,7 +10,7 @@
         <div id="encabezado" class="teu">
             <div id="conexion">
             <?php 
-                //include PATH_APPLICATION_APP."vistas/zonas/form_login.php";
+                include PATH_APPLICATION_APP."vistas/zonas/form_login.php";
             ?>  
             </div>
             <?php 
