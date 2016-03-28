@@ -25,6 +25,8 @@ $(document).ready(function(){
         var x = $(event.target);
         field = x.data('field');
         orden = x.data('ord');
+        kind = '<?php echo isset($datos['values']['kind']) ? $datos['values']['kind'] : 'all'; ?>';
+        //alert(kind);
         //jugadores = x.data('datos');
         //var imagenWeb = event.target.getAttribute('data-url');
         //alert(field);
@@ -32,17 +34,18 @@ $(document).ready(function(){
         //$(id).html('<p style="text-align: center;margin-top: 5%;"><img src="../home/recursos/imagenes/ajax-loader.gif" /></p>');
 
         //Ordenar por el campo: 3 formas:
-        ordenarTabla(field,orden); //it works
+        ordenarTabla(field,orden,kind); //it works
         //conAjax1(imagenWeb); //it works
         //conAjax2(imagenWeb); //it works
     });
 });
 
-function ordenarTabla(field,order,jugadores){
-    //alert(order);
+function ordenarTabla(field,order,kind){
+    url = host+name_app+'/players/index';
+    //alert(url);
     jQuery.post(
-        host+name_app+'/players/index'
-        ,{is_ajax: "true", field: field, order_type: order }
+        url
+        ,{is_ajax: "true", field: field, order_type: order, kind: kind }
         ,function(data, textStatus, jqXHR) {
             $("#view_content").html(data);
         }

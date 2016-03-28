@@ -253,13 +253,20 @@ class players{    //la clase se tiene que llamar igual que el archivo
         return $equipos;
     }
     
-    public static function getPlayers(array $clausulas = array(), $starPlayer = false, $is_active = true){
+    public static function getPlayers( $kind = 'all', $is_active = false, array $clausulas = array()){
         //var_dump($post);
         if($is_active){
             $clausulas['where'] = "is_active = true";
         }
-        if($starPlayer){
-            $clausulas['where'] = "jugador_estrella = true";
+        
+        switch ($kind){
+            case 'star':
+                $clausulas['where'] = "jugador_estrella = true";
+                break;
+            case 'regular':
+            case 'normal':
+                $clausulas['where'] = "jugador_estrella = false";
+                break;
         }
         
         $clausulas['order_by'] = "nombre";

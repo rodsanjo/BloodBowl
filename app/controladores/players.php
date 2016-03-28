@@ -8,14 +8,13 @@ class players extends \core\Controlador {
     
     private static $controlador = 'players';
     
-    public function index(array $datos = array(), $is_ajax = false, $order_type = 'asc' ){
+    public function index(array $datos = array(), $kind = 'all', $is_ajax = false, $order_type = 'asc' ){
         
         //Realizamos la busqueda
         $post = \core\HTTP_Requerimiento::post();
         //var_dump($post);
-        if(isset($post['is_ajax'])){
-            $is_ajax = $post['is_ajax'];
-        }
+        $is_ajax = isset($post['is_ajax']) ? $post['is_ajax'] : $is_ajax;
+        $kind = isset($post['kind']) ? $post['kind'] : $kind;
         if(isset($post['order_type'])){
             if($post['order_type'] === 'desc'){
                 $desc = true;
@@ -29,10 +28,10 @@ class players extends \core\Controlador {
         if( isset($post['field']) ){
             //$datos = unserialize($post['datos']['jugadores']);
             //var_dump($datos);
-            $datos['jugadores'] = \modelos\players::getPlayers();
+            $datos['jugadores'] = \modelos\players::getPlayers($kind);
             \core\tools::ordenarArray($datos['jugadores'], $post['field'], $desc);
         }else{
-            $datos['jugadores'] = \modelos\players::getPlayers();
+            $datos['jugadores'] = \modelos\players::getPlayers($kind);
             //$datos['bienes'] = self::buscarInmuebles($post);
         }
 
@@ -45,6 +44,7 @@ class players extends \core\Controlador {
         $jugador['equipos'] = \modelos\players::getTeamsOfPlayers($datos);        
         
         $datos['values']['order_type'] = $order_type;
+        $datos['values']['kind'] = $kind;
         if($is_ajax){
             $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
             echo $datos['view_content'];
@@ -55,7 +55,12 @@ class players extends \core\Controlador {
         } 
     }
     
-    public function star_players(array $datos = array(), $is_ajax = false, $order_type = 'asc' ){
+    public function starplayers(array $datos = array()){
+        $kind = 'star';
+        $this->index($datos, $kind);
+    }
+    
+    public function star_players_old(array $datos = array(), $is_ajax = false, $order_type = 'asc' ){
         //Realizamos la busqueda
         $post = \core\HTTP_Requerimiento::post();
         //var_dump($post);

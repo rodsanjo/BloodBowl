@@ -64,7 +64,7 @@
             <ul>
                 <li class='has-sub'>
                     <?php 
-                    echo \core\HTML_Tag::a_boton("", array("players","star_players"), "Jugadores estrella", array( 'title' => "Jugadores estrella") );
+                    echo \core\HTML_Tag::a_boton("", array("players","starplayers"), "Jugadores estrella", array( 'title' => "Jugadores estrella") );
                     ?>
                 </li>
             </ul>

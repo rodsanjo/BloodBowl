@@ -15,6 +15,10 @@ root {
 .fdderecha1 {float:right; width: 25%;}
 .fdderecha2 {float: left; width: 25%;}
 
-.orden_columna{
+table .orden_columna{
     cursor: pointer;
+}
+
+table .orden_columna:hover{
+    color: blue;
 }
