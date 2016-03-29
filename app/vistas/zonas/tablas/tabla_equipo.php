@@ -3,7 +3,8 @@
 foreach ($datos['equipos'] as $equipo) {
     //var_dump($equipo);
     echo "<div class='col-md-12' style='clear: both;'>";
-        echo "<center><h2 id='{$equipo['equipo']['raza']}'>{$equipo['equipo']['raza']}</h2>";
+        $raza_id = str_replace(' ', '', $equipo['equipo']['raza']);
+        echo "<center><h2 id='$raza_id'>{$equipo['equipo']['raza']}</h2>";
         echo \core\HTML_Tag::boton_div_with_data("input-group-addon edicion_team menu_adm", array("teams", "form_modificar", $equipo['equipo']['id']), "Modificar equipo de {$equipo['equipo']['raza']}", array('style' => 'color:#428bca;cursor:pointer;'));
         echo "</center>";
         $nombre_carpeta = \modelos\ficheros::getNombreCarpeta( $equipo['equipo']['id'] );

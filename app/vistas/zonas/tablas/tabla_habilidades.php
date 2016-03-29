@@ -16,9 +16,10 @@
         <?php
         foreach ($datos['habilidades'] as $key => $hab) {
             echo '<tr>';
+                $hab_nomb_hash = str_replace(" ", "", $hab['nombre']);
                 //echo "<td class='edicion_jugador' data-id='{$jugador['id']}'>{$jugador['nombre']} <span class='glyphicon glyphicon-pencil' aria-hidden='true' style='color:#428bca;'></span></td>";
                 //$hab_nombr = str_replace(" ", "", $hab['nombre']);
-                echo "<td id='{$hab['nombre']}'><b>{$hab['nombre']}</b></td>";
+                echo "<td id='$hab_nomb_hash'><b>{$hab['nombre']}</b></td>";
                 echo "<td>{$hab['tipo']}</td>";
                 echo "<td>{$hab['descripcion']}</td>";
                 if ( \core\Usuario::tiene_permiso('skills', 'form_borrar')) {

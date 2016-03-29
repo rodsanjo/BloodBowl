@@ -44,9 +44,9 @@ foreach ($datos['habilidades'] as $key => $hab) {
                 if($key != 1 ){
                     echo " - ";
                 }
-                //$hab_nombr = str_replace(" ", "", $hab_nomb);
+                $hab_nomb_hash = str_replace(" ", "", $hab_nomb);
                 //echo "<div class='col-lg-2 col-md-3 col-sm-4'><a href='#$hab_nomb'>$hab_nomb</a></div>";
-                echo "<li><a href='#$hab_nomb'>$hab_nomb</a></li>";
+                echo "<li><a href='#$hab_nomb_hash'>$hab_nomb</a></li>";
             }
             echo "</ul></ul>";
         }

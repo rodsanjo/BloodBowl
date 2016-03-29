@@ -8,7 +8,7 @@ foreach ($datos['equipos'] as $equipo) {
         ?>
         <div class="img_escudo col-md-1"/>
             <center>
-                <a href="#<?php echo $equipo['equipo']['raza']; ?>">
+                <a href="#<?php echo str_replace(' ','',$equipo['equipo']['raza']); ?>">
                     <?php echo $img; ?>
                 </a>
             </center>

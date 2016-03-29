@@ -1,10 +1,3 @@
-//Host
-host = '';
-//Localhost:
-//host = '/web/jergapps'; //'http://localhost/web/jergapps';
-name_app = '/bloodbowl'
-
-
 /**
  * Función jquery que gestiona el menú izquierdo mostrando y ocultando las distintas opciones
  */

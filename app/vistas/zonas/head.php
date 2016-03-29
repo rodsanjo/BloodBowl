@@ -62,8 +62,8 @@
 <script type="text/javascript" src=""></script>
 <script type="text/javascript" src="<?php echo URL_HOME_ROOT ?>recursos/js/jquery/jquery-1.10.2.js"></script>
 
+<script type="text/javascript" src="<?php echo URL_ROOT ?>recursos/js/config.js"></script>
 <script type="text/javascript" src="<?php echo URL_HOME_ROOT ?>recursos/js/funciones.js"></script>
 <script type="text/javascript" src="<?php echo URL_ROOT ?>recursos/js/funciones.js"></script>
-
 <script type="text/javascript" src="<?php echo URL_HOME_ROOT ?>recursos/js/ajax.js"></script>
 <script type="text/javascript" src="<?php echo URL_ROOT ?>recursos/js/ajax.js"></script>
