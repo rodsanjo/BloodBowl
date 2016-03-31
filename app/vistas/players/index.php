@@ -1,4 +1,11 @@
 <div id="jugadores">
+    <?php
+    $texto = 'Jugadores';
+    if( $datos['values']['kind'] == 'star'){
+        $texto = 'Jugadores estrella';
+    }
+    ?>
+    <h1 class="text-center"><small><?php echo $texto; ?></small></h1>
 <?php
 //var_dump($datos);
 $controlador = $datos['controlador_clase'];
