@@ -67,6 +67,7 @@ foreach ($datos['equipos'] as $equipo) {
             <br/>
             <p>0-8 Fichas de SO: <?php echo $equipo['equipo']['coste_SO']; ?> monedas cada una.</p>
         </div>
+        <div class="saltopagina"></div>
     </div>
     <?php
 }

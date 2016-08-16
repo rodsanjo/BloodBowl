@@ -6,7 +6,7 @@
     ?>   
 </head>
 <body>
-    <section >
+    <section class="no_imprimir">
         <div id="encabezado" class="teu">
             <div id="conexion">
             <?php 
@@ -51,7 +51,7 @@
        </div> 
     </section>
 
-    <section id="piej" class="pie">
+    <section id="piej" class="pie no_imprimir">
         <div id="pie" class="pie">
             <?php 
                 include PATH_APPLICATION_APP."vistas/zonas/pie.php";
