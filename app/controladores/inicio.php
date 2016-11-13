@@ -10,6 +10,13 @@ class inicio extends \core\Controlador {
         \core\HTTP_Respuesta::enviar($http_body);
     }
     
+    public function ediciones(array $datos = array()){
+        
+        $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
+        $http_body = \core\Vista_Plantilla::generar('DEFAULT', $datos);
+        \core\HTTP_Respuesta::enviar($http_body);
+    }
+    
     public function oficiales(array $datos = array()){
         $oficial_teams = new \controladores\teams();
         $actived_teams = true;

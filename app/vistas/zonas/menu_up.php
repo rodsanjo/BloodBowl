@@ -5,6 +5,11 @@
             <ul>
                 <li class='has-sub'>
                     <?php 
+                    echo \core\HTML_Tag::a_boton("", array("inicio","ediciones"), "Ediciones", array( 'title' => "Ediciones") );
+                    ?>
+                </li>
+                <li class='has-sub'>
+                    <?php 
                     echo \core\HTML_Tag::a_boton("", array("inicio","oficiales"), "Mis equipos", array( 'title' => "Mis equipos oficiales") );
                     ?>
                 </li>
