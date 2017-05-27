@@ -51,23 +51,17 @@
        </div> 
     </section>
 
-    <section id="piej" class="pie no_imprimir">
-        <div id="pie" class="pie">
-            <?php 
-                include PATH_APPLICATION_APP."vistas/zonas/pie.php";
-            ?>
-        </div>
-        <div id="conexion">
-            <?php 
-                //include PATH_APPLICATION_APP."vistas/zonas/form_login.php";
-            ?>  
-        </div>            
+    <section id="piej" class="pie no_imprimir">           
         <div>
             <?php 
                 include PATH_HOME."app/vistas/zonas/pie.php";
             ?>
         </div>
-            
+        <div id="conexion cuadro_login">
+            <?php 
+                //include PATH_APPLICATION_APP."vistas/zonas/form_login.php";
+            ?>  
+        </div>
     </section>
     
     <!--Para poder enviar los formularios con el id oculto-->

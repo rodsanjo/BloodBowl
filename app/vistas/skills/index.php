@@ -1,4 +1,4 @@
-<div id="jugadores">
+<div id="skills">
 <?php
 //var_dump($datos);
 $controlador = $datos['controlador_clase'];

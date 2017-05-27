@@ -3,6 +3,6 @@
     <?php include "form_and_inputs.php"; ?>
     
     <script type='text/javascript'>
-        window.document.getElementById("referencia").readOnly='readonly';                
+        //window.document.getElementById("referencia").readOnly='readonly';                
     </script>
 </div>

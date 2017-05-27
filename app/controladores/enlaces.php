@@ -18,7 +18,7 @@ class enlaces extends \core\Controlador {
         $datos[self::$enlaces] = \modelos\Enlaces_en_fichero::get_enlaces();
 
         $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos, true);
-        $http_body = \core\Vista_Plantilla::generar(self::$plantilla, $datos, true);
+        $http_body = \core\Vista_Plantilla::generar('DEFAULT', $datos, true);
         \core\HTTP_Respuesta::enviar($http_body);
 
     }
@@ -27,7 +27,7 @@ class enlaces extends \core\Controlador {
     public function form_anexar(array $datos = array()) {
 
         $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos, true);
-        $http_body = \core\Vista_Plantilla::generar(self::$plantilla, $datos, true);
+        $http_body = \core\Vista_Plantilla::generar('DEFAULT', $datos, true);
         \core\HTTP_Respuesta::enviar($http_body);
 
     }
@@ -65,7 +65,7 @@ class enlaces extends \core\Controlador {
             $datos['values']['id'] = $id;   //el id no existe en la BD de los $enlaces creada
         }
         $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos, true);
-        $http_body = \core\Vista_Plantilla::generar(self::$plantilla, $datos, true);
+        $http_body = \core\Vista_Plantilla::generar('DEFAULT', $datos, true);
         \core\HTTP_Respuesta::enviar($http_body);
     }
 
@@ -101,7 +101,7 @@ class enlaces extends \core\Controlador {
         $datos['values']['id'] = $id;
 
         $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos, true);
-        $http_body = \core\Vista_Plantilla::generar(self::$plantilla, $datos, true);
+        $http_body = \core\Vista_Plantilla::generar('DEFAULT', $datos, true);
         \core\HTTP_Respuesta::enviar($http_body);
     }
 

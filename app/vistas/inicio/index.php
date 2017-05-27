@@ -10,8 +10,9 @@
     
     <?php
         //Imagenes de wallpapers a mostrar
-        $wallpapers = array(1,2,3,4,6);
-        foreach ($wallpapers as $key => $num) {
+//        $wallpapers = array(1,2,3,4,5,6);
+//        foreach ($wallpapers as $key => $num) {
+        for( $num = 1; $num < 7 ; $num++ ){
             echo $divImag;
             echo "<img src='".URL_APPLICATION_ROOT."recursos/imagenes/fondo/web/wallpapers$num.jpg' alt='wallpapers$num' title='wallpapers$num' style='width: 100%;'/>";
             echo "</div>";

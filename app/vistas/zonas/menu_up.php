@@ -76,6 +76,7 @@
         </li>
         
         <?php echo \core\HTML_Tag::li_menu("item", array("skills"), "Habilidades"); ?>
+        <?php echo \core\HTML_Tag::li_menu("item", array("teams","createTeam"), "Crear equipo"); ?>
         <?php echo \core\HTML_Tag::li_menu("item", array("tacticas"), "Tácticas"); ?>
         <?php echo \core\HTML_Tag::li_menu("item", array("enlaces"), "Links"); ?>
         <?php echo \core\HTML_Tag::li_menu("menu_adm", array("usuarios"), "Usuarios"); ?>
