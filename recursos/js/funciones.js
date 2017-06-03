@@ -108,6 +108,19 @@ function ejecutarYCerrarVentana(uri){
     })
 }
 
+function recalcular(key, coste, numero, numPlayers){
+    
+    costeParcial_inicial = document.getElementById('costeParcial_'+key).innerHTML;
+    team_value_inicial = document.getElementById('team_value').innerHTML;
+    
+    costeParcial_final = eval(parseInt(numero) * parseInt(coste));
+    document.getElementById('costeParcial_'+key).innerHTML = costeParcial_final;
+    
+    team_value_final = eval(team_value_inicial - costeParcial_inicial/10 + costeParcial_final/10);
+    document.getElementById('team_value').innerHTML = team_value_final;
+    
+}
+
 function abrirVentana_altasCSV(){
     url = host+name_app+'/skills/altasCSV';
     //url = '<?php echo URL_ROOT ?>skills/altasCSV';

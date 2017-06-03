@@ -31,4 +31,23 @@ function ordenarTabla(field,order){
     );
 }
 
+//Team sheet. Hoja de equipo
+function setTeamSheet(){
+    
+    $('select#selected_team').on('change',function(){
+        var team_id = $(this).val();
+        console.log(team_id);
+        
+        jQuery.post(
+            host+name_app+'/teams/raza'
+            ,{is_ajax: "true", team_id: team_id}
+            ,function(data, textStatus, jqXHR) {
+                $("#team_sheet").html(data);
+            }
+
+        );
+    });
+    
+}
+
 

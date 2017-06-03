@@ -1,0 +1,23 @@
+/* 
+    Document   : teams
+    Created on : 02-may-2015, 20:34:40
+    Author     : Jorge Rodríguez <jergo23@gmail.com>
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.equipo{
+    font-size: 0.9em;
+}
+table tr th{
+    background-color: rgba(230,230,230,1);
+}
+/*
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+*/
+th, td {
+    padding: 15px;
+}

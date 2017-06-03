@@ -47,7 +47,7 @@ class teams extends \core\Controlador {
         //Mostramos los datos a modificar en formato europeo. Convertimos el formato de MySQL a europeo para su visualización
         \modelos\players::convertir_formato_mysql_a_ususario_pt($datos['equipos'], false);
         
-        if($actived_teams){ //es llamdo desde inicio/oficiales
+        if($actived_teams){ //It is called from inicio/oficiales
             return $datos;
         }
         $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
@@ -60,17 +60,24 @@ class teams extends \core\Controlador {
      * @param array $datos
      * @return type
      */
-    public function raza(array $datos = array()) {
+    public function raza(array $datos = array(), $is_ajax = false) {
         
         //\core\http_requermiento::request_come_by_post();
         //var_dump($_GET);
         //var_dump($_POST);
+        
+        //Ajax viene por post
+        $post = \core\HTTP_Requerimiento::post();
+        //var_dump($post);
+        $is_ajax = isset($post['is_ajax']) ? $post['is_ajax'] : $is_ajax;
         
         if( isset($_POST['id']) && is_int($_POST['id']) ){ //viene el id
             $clausulas['where'] = " id = {$_POST['id']} ";
         }elseif( isset($_GET['p3']) ){ //no viene el id, han escrito la url a mano
             $raza = str_replace('-',' ', $_GET['p3'] );
             $clausulas['where'] = " raza = '$raza' ";
+        }elseif( isset( $post['team_id'] ) ){
+            $clausulas['where'] = " id = {$post['team_id']} ";
         }else{
             $clausulas['where'] = " 1=1 ";   //Por si alguien maneja la URL sin introducir referencia, mostrará el primero
         }
@@ -98,9 +105,14 @@ class teams extends \core\Controlador {
         //Mostramos los datos a modificar en formato europeo. Convertimos el formato de MySQL a europeo para su visualización
         \modelos\players::convertir_formato_mysql_a_ususario_pt($datos['equipos'], false);
         
-        $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
-        $http_body = \core\Vista_Plantilla::generar('DEFAULT', $datos);
-        \core\HTTP_Respuesta::enviar($http_body);
+        if($is_ajax){ //team_sheet
+            $datos['view_content'] = \core\Vista::generar('team_sheet', $datos);
+            echo $datos['view_content'];
+        }else{
+            $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
+            $http_body = \core\Vista_Plantilla::generar('DEFAULT', $datos);
+            \core\HTTP_Respuesta::enviar($http_body);
+        }
         
     }
     
@@ -510,6 +522,20 @@ class teams extends \core\Controlador {
         //Abriremos el formulario en una ventana nueva
         $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
         $http_body = \core\Vista_Plantilla::generar('view_content', $datos);
+        \core\HTTP_Respuesta::enviar($http_body);
+    }
+    
+    public static function teamcreator(array $datos = array()){
+        
+        //We get the teams
+        if ( ! $filas = \modelos\Datos_SQL::select( "", self::$tabla_e)) {
+            $datos['mensaje'] = 'No existe ningún equipo para previsualizar';
+            \core\Distribuidor::cargar_controlador('mensajes', 'mensaje', $datos);
+            return;
+        }
+        
+        $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
+        $http_body = \core\Vista_Plantilla::generar('DEFAULT', $datos);
         \core\HTTP_Respuesta::enviar($http_body);
     }
 	

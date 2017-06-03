@@ -9,6 +9,7 @@ foreach ($datos['equipos'] as $equipo) {
         <div class="img_escudo col-md-1"/>
             <center>
                 <a href="#<?php echo str_replace(' ','',$equipo['equipo']['raza']); ?>">
+                    <spam id="team_id" hidden="hidden"><?php echo $equipo['equipo']['id']; ?></spam>
                     <?php echo $img; ?>
                 </a>
             </center>
