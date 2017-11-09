@@ -54,7 +54,12 @@ if($multiaplicacion){
 }
 
 //Titulo de la aplicación
-define('TITULO', 'Blood Bowl');
+//define('TITULO', 'Blood Bowl');
+$matches = [];
+//echo URL_ACTUAL;
+preg_match("/([\w\d]{1,})\/$/i", URL_ACTUAL, $matches);
+//var_dump($matches);
+define('TITULO', 'BB-'.$matches[1]);
 
 //Para comprobar el valor de las constantes
 //print_r(URL_HOME_ROOT);

@@ -16,7 +16,7 @@ echo "<div class='col-md-12' style='clear: both;'>";
                     <th>Denominación</th>
                     <th>Coste</th>
                     <th>Número</th>
-                    <th>Coste total (miles)</th>
+                    <th>Costes parciales</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,8 +37,8 @@ echo "<div class='col-md-12' style='clear: both;'>";
                 //Otros: Fichas de S.O., médico, factor de hinchas
                 $otros = array(
                     'so' => array( 0,8,'Segunda oportunidad', $equipo['equipo']['coste_SO'] )
-                    ,'medico' => array(0,1, 'Médico', 50.000 )
-                    ,'ff' => array(1,10, 'Factor de hinchas', 10.000)
+                    ,'medico' => array(0,1, 'Médico', '50.000' )
+                    ,'ff' => array(1,10, 'Factor de hinchas', '10.000')
                 );
                 $j = $key+1;
                 foreach ($otros as $key => $value) {
@@ -58,8 +58,8 @@ echo "<div class='col-md-12' style='clear: both;'>";
             <tfoot>
                 <tr>
                     <td colspan="3"></td>
-                    <td>Valoración del equipo:</td>
-                    <td><b><div id="team_value"></div></b></td>
+                    <td><b>Valoración del equipo:</b></td>
+                    <td><b><div id="team_value">0</div></b></td>
                 </tr>
             </tfoot>
         </table></div>

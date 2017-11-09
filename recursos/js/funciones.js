@@ -108,13 +108,17 @@ function ejecutarYCerrarVentana(uri){
     })
 }
 
-function recalcular(key, coste, numero, numPlayers){
+function recalcular(key, coste, numero){ //recalcula la valoracion del equipo
     
     costeParcial_inicial = document.getElementById('costeParcial_'+key).innerHTML;
     team_value_inicial = document.getElementById('team_value').innerHTML;
     
+    if (numero === '') {
+        numero = 0;
+    }
+    
     costeParcial_final = eval(parseInt(numero) * parseInt(coste));
-    document.getElementById('costeParcial_'+key).innerHTML = costeParcial_final;
+    document.getElementById('costeParcial_'+key).innerHTML = costeParcial_final+'.000';
     
     team_value_final = eval(team_value_inicial - costeParcial_inicial/10 + costeParcial_final/10);
     document.getElementById('team_value').innerHTML = team_value_final;
