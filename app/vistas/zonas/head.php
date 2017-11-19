@@ -8,13 +8,12 @@
 <link href="<?php echo URL_ROOT ?>favicon.png" rel="shortcut icon" type="image/x-icon" />
 <link href="<?php echo URL_ROOT ?>favicon.png" rel="icon" type="image/x-icon" /> 
 
-<meta name="title" content="Home"/>
-
-<meta name="Description" content="Home" />
+<meta name="title" content="Blood Bowl"/>
+<meta name="Description" content="Boardgame" />
 <meta name="rating" content="General"/>
-<meta name="Generator" content="con qué se ha hecho" />
-<meta name="Origen" content="Quíen lo ha hecho: Jergo" />
-<meta name="Author" content="nombre del autor: Jorge" />
+<meta name="Generator" content="jequeto framework" />
+<meta name="Origen" content="Vallekas" />
+<meta name="Author" content="Jergo" />
 <meta name="Locality" content="Madrid, España" />
 <meta name="Lang" content="es" />
 <meta name="Viewport" content="maximum-scale=10.0" />
@@ -23,14 +22,14 @@
 
 <!-- for Google -->
 <meta name="description" content="Aplicaciones de la jerga cotidiana" />
-<meta name="keywords" content="" />
+<meta name="keywords" content="blood bowl, juego de mesa, partidos, deporte, razas, touchdown, boardgame" />
 
 <!-- for Facebook -->
-<meta property="og:title" content="jergapps" />
-<meta property="og:type" content="article" />
-<meta property="og:image" content="http://www.jergapps.com/images/logo.png" />
-<meta property="og:url" content="http://www.jergapps.com/" />
-<meta property="og:description" content="Aplicaciones de la jerga cotidiana" />
+<meta property="og:title" content="Blood Bowl" />
+<meta property="og:type" content="web" />
+<meta property="og:image" content="http://jergapps.zz.mu/bloodbowl/recursos/imagenes/BloodBowl.png" />
+<meta property="og:url" content="http://jergapps.zz.mu/bloodbowl/" />
+<meta property="og:description" content="Blood Bowl" />
 
 <!-- for Twitter -->
 <meta name="twitter:card" content="summary" />
