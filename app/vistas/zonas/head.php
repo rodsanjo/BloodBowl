@@ -32,10 +32,10 @@
 <meta property="og:description" content="Blood Bowl" />
 
 <!-- for Twitter -->
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="jergapps" />
-<meta name="twitter:description" content="Aplicaciones de la jerga cotidiana" />
-<meta name="twitter:image" content="http://www.jergapps.com/images/logo.png" />
+<meta name="twitter:card" content="Blood Bowl boardgame" />
+<meta name="twitter:title" content="Blood Bowl" />
+<meta name="twitter:description" content="boardgame" />
+<meta name="twitter:image" content="http://jergapps.zz.mu/bloodbowl/recursos/imagenes/BloodBowl.png" />
 
 <?php 
     include PATH_HOME."app/vistas/zonas/head_bootstrap.php";

@@ -8,12 +8,12 @@
         <div class='col-md-6' style="text-align: justify">
             <p>Bienvenidos a no una página cualquiera con información relativa a <b><i>Blood Bowl</i></b>, el mejor juego de la historia donde compiten razas fantásticas y se marcan touchdowns!!!</p>
             <p>
-                Aquí encontraras los datos de los jugadores de cada equipo con los que considero óptimo jugar.
-                Me parecen absurdos los "big guys" o "tipejos grandotes" con habilidades como solitario, cabeza hueca, siempre hambriento... dado que el juego ya tiene demasidas tiradas en cada partida para que además tengamos que meter más y hacer aún menos llevaderos los partidos para gente menos aficionada.
-                Tambien me parece ilógico contratar a un jugadores estrella para jugar un único partido.
+                Aquí encontrarás los datos de los jugadores de cada equipo con los que considero óptimo jugar.
+                Me parecen absurdos los "big guys" o "tipejos grandotes" con habilidades como solitario, cabeza hueca, siempre hambriento... dado que el juego ya tiene demasidas tiradas en cada partida para que además tengamos que añadir más y hacer aún menos llevaderos los partidos para gente menos aficionada.
+                Tambien me parece ilógico contratar a un jugador estrella para jugar un único partido.
             </p>
             <p>
-               Es por ello que no encontraras información actualizada a las nuevas ediciones, yo me quedo con las reglas de la 3ª edición y las mejoras que considero oportunas de las nuevas ediciones.
+               Es por ello que no encontrarás información actualizada a las nuevas ediciones, yo me quedo con las reglas de la 3ª edición como base y las mejoras que considero oportunas de las nuevas ediciones.
             </p>
         </div>
         <div class='col-md-6'>

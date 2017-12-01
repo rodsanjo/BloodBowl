@@ -18,13 +18,7 @@
   border-radius: 5px 5px 0 0;
   -moz-border-radius: 5px 5px 0 0;
   -webkit-border-radius: 5px 5px 0 0;
-  background: #141414;
-  background: -moz-linear-gradient(top, #333333 0%, #141414 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #333333), color-stop(100%, #141414));
-  background: -webkit-linear-gradient(top, #333333 0%, #141414 100%);
-  background: -o-linear-gradient(top, #333333 0%, #141414 100%);
-  background: -ms-linear-gradient(top, #333333 0%, #141414 100%);
-  background: linear-gradient(to bottom, #333333 0%, #141414 100%);
+  background: rgb(0,67,119);
   border-bottom: 2px solid rgb(155,177,198)/*#0fa1e0*/;
   width: auto;
 }
@@ -35,13 +29,7 @@
   clear: both;
 }
 #cssmenu a {
-  background: #141414;
-  background: -moz-linear-gradient(top, #333333 0%, #141414 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #333333), color-stop(100%, #141414));
-  background: -webkit-linear-gradient(top, #333333 0%, #141414 100%);
-  background: -o-linear-gradient(top, #333333 0%, #141414 100%);
-  background: -ms-linear-gradient(top, #333333 0%, #141414 100%);
-  background: linear-gradient(to bottom, #333333 0%, #141414 100%);
+  background: rgb(0,67,119);
   color: #ffffff;
   display: block;
   font-family: Helvetica, Arial, Verdana, sans-serif;
@@ -107,16 +95,10 @@
 #cssmenu > ul > li.active > a,
 #cssmenu > ul > li:hover > a {
   color: #ffffff;
-  box-shadow: inset 0 0 3px #000000;
-  -moz-box-shadow: inset 0 0 3px #000000;
-  -webkit-box-shadow: inset 0 0 3px #000000;
-  background: #070707;
-  background: -moz-linear-gradient(top, #262626 0%, #070707 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #262626), color-stop(100%, #070707));
-  background: -webkit-linear-gradient(top, #262626 0%, #070707 100%);
-  background: -o-linear-gradient(top, #262626 0%, #070707 100%);
-  background: -ms-linear-gradient(top, #262626 0%, #070707 100%);
-  background: linear-gradient(to bottom, #262626 0%, #070707 100%);
+  box-shadow: inset 0 0 3px rgb(1,67,119);
+  -moz-box-shadow: inset 0 0 3px rgb(1,67,119);
+  -webkit-box-shadow: inset 0 0 3px rgb(1,67,119);
+  background: rgb(1,67,119);
 }
 #cssmenu .has-sub {
   z-index: 1;
@@ -149,7 +131,7 @@
   color: #ffffff;
 }
 #cssmenu .has-sub ul li:hover a {
-  background: #0c7fb0;
+  background: rgb(0,67,119)/*#0c7fb0*/;
 }
 #cssmenu ul ul li:hover > a {
   color: #ffffff;
@@ -169,7 +151,7 @@
   right: 100%;
 }
 #cssmenu .has-sub .has-sub ul li a {
-  background: #0c7fb0;
+  background: rgb(0,67,119)/*#0c7fb0*/;
   border-bottom: 1px dotted #31b7f1;
 }
 #cssmenu .has-sub .has-sub ul li a:hover {
