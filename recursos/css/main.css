@@ -67,8 +67,8 @@ hr {    /*Anular bootstrap*/
 }
 
 #piej{
-    background: rgb(155,177,198);
-    background: url("../imagenes/fondo/cesped-fondo.jpg");
+    background: rgb(0,67,119);
+    /*background: url("../imagenes/fondo/cesped-fondo.jpg");*/
     color: rgb(255,255,255);
     padding: 3px 5px;
     margin-top: 5px;
@@ -77,11 +77,12 @@ hr {    /*Anular bootstrap*/
     width: 100%;
 }
 #piej a, #piej p{
-    color: rgb(0,67,119);
+    /*color: rgb(0,67,119);*/
     margin: 0;
 }
 #piej #pie{
     background: rgb(155,177,198);
+    background: url("../imagenes/fondo/cesped-fondo.jpg");
     color: rgb(0,67,119);
 }
 
